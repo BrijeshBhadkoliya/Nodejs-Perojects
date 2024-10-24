@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Recipe Box</title>
+  <style>
+    *,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:root {
+  --ink-color: #222;
+  --hover-color: #555;
+  --book-cover-color: #be8f3c;
+  --field-color: #f0eedb;
+  --paper-color: #e1ddb8;
+  --margin: 0 auto 20px;
+  --padding: 20px;
+  --bg: linear-gradient(to right, rgba(240, 238, 220, 0.3), rgba(6, 6, 3, 0.6)),
+    url(https://img.pikbest.com/ai/illus_our/20230413/accccb2759299183bbbfd26bd8b1abfa.jpg!w700wp);
+  --shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+html {
+  font-size: 1.25rem;
+  color: var(--ink-color);
+}
+
+body,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+body {
+  font-family: "Style Script", cursive;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.error {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 5vmax;
+}
+
+h1,
+h2 {
+  font-family: "MonteCarlo", cursive;
+}
+
+ul {
+  padding-left: 25px;
+}
+
+ol {
+  padding-left: 20px;
+}
+
+a,
+i {
+  cursor: pointer;
+}
+
+a:hover,
+a:focus,
+i:hover,
+i:focus {
+  color: var(--hover-color);
+}
+
+.active {
+  text-underline-offset: 2px;
+  text-decoration: underline;
+}
+
+h2.hdg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h2 i:first-child {
+  margin-right: 20px;
+}
+
+.book,
+.paper {
+  border-radius: 0.75em;
+}
+
+.book,
+.paper.list {
+  max-width: 1000px;
+}
+
+.paper.list::-webkit-scrollbar,
+.book .paper::-webkit-scrollbar,
+#activity-log::-webkit-scrollbar {
+  width: 10px;
+}
+
+.paper.list::-webkit-scrollbar-thumb,
+.book .paper::-webkit-scrollbar-thumb,
+#activity-log::-webkit-scrollbar-thumb {
+  background: var(--ink-color);
+}
+
+.paper.list::-webkit-scrollbar-thumb:hover,
+.book .paper::-webkit-scrollbar-thumb:hover,
+#activity-log::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
+}
+
+.book {
+  background: var(--book-cover-color);
+  margin: var(--margin);
+  padding: 0 var(--padding);
+  box-shadow: var(--shadow);
+}
+
+.paper.list,
+.book .paper {
+  overflow: auto;
+}
+
+.book .paper {
+  height: 300px;
+}
+
+.paper {
+  background: var(--paper-color);
+  width: 100%;
+  padding: var(--padding);
+}
+
+.hdg.paper,
+.paper.list {
+  border: 10px solid var(--book-cover-color);
+  margin: var(--margin);
+  box-shadow: var(--shadow);
+}
+
+.paper.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90px;
+}
+
+.paper.list a:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.hdg.paper {
+  width: 350px;
+  text-align: center;
+}
+
+/* overlay */
+#overlay,
+form,
+#btn-container,
+.col {
+  display: flex;
+}
+
+textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: var(--ink-color);
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
+}
+
+#overlay,
+form {
+  justify-content: center;
+  align-items: center;
+}
+
+#overlay {
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+form,
+.col {
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+form,
+#activity-log {
+  position: relative;
+  background: var(--paper-color);
+  width: 90vw;
+  border: 5px solid var(--book-cover-color);
+  padding: var(--padding);
+  overflow: auto;
+}
+
+form {
+  max-width: 500px;
+}
+
+.col {
+  max-width: 450px;
+  width: 90%;
+}
+
+input,
+textarea,
+button {
+  font-family: inherit;
+  background: var(--field-color);
+  border: 1px solid var(--ink-color);
+}
+
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus,
+button:hover,
+button:focus {
+  border-color: var(--book-cover-color);
+}
+
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+input[type="text"],
+textarea {
+  padding: 10px;
+}
+
+input:not([type="text"]),
+button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+input:not([type="text"]):first-child {
+  margin-right: 10px;
+}
+
+textarea {
+  resize: none;
+}
+
+#close {
+  position: absolute;
+  cursor: pointer;
+  top: .75em;
+  right: .75em;
+}
+
+#activity-log {
+  max-width: 1000px;
+  max-height: 90vh;
+}
+
+#activity-log p {
+  margin: 0;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#activity-log h2,
+#activity-log .activity {
+  border-bottom: 2px solid var(--ink-color);
+}
+
+#activity-log .activity {
+  padding: 0.5em 0;
+}
+
+#activity-log div.activity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.col-2 {
+  display: grid;
+  grid-template-columns: 80px auto;
+  pointer-events: none;
+  touch-action: none;
+}
+
+button {
+  margin-top: 0.5em;
+}
+
+    /* * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .recipe-card {
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-card h2 {
+      color: #be8f3c;
+      margin-bottom: 10px;
+    }
+
+    .recipe-form {
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #be8f3c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #b07b2a;
+    } */
+  </style>
+</head>
+<body>
+    <div class="paper list">
+        <a class="active" data-id="1">Cake</a>
+        <a class="" data-id="2">Taco</a>
+        <a class="" data-id="3">Peanut Butter and Jelly Sandwich</a>
+    </div>
+    
+    <div class="container">
+    <div class="paper hdg">
+        <h1>Book table</h1>
+      </div>
+      
+      
+    
+    <form class="recipe-form hdg paper" style="width: 660px;" action="/addData" method="post">
+ 
+ 
+      <h2  style="margin-bottom: 30px; font-size: 35px;">Add a New  Book Data</h2>
+       
+     <label for="recipe-name" style="margin-bottom: 5px;">Book Name:</label>
+     <input type="text" id="recipe-name" placeholder="Enter Book name" required name="name" style="margin-bottom:13px; width: 350px;">
+
+     <label for="recipe-name" style="margin-bottom: 5px;">Book  Price:</label>
+     <input type="text" id="recipe-name" placeholder="Enter Book  Price" required name="price" style="margin-bottom:13px; width: 350px;">
+
+     <label for="recipe-name" style="margin-bottom: 5px;">Book   Pages:</label>
+     <input type="text" id="recipe-name" placeholder="Enter Book  Pages" required name="pages" style="margin-bottom:13px; width: 350px;">
+
+
+      <label for="recipe-description" style="margin-bottom: 20px;">Description:</label>
+      <textarea id="recipe-description" rows="4" placeholder="Enter Book description" name="description" style="margin-bottom: 13px; width: 350px;" required></textarea>
+
+      <button type="submit">Add Book</button>
+  
+    </form>
+
+  </div> 
+ 
+</body>
+</html>
