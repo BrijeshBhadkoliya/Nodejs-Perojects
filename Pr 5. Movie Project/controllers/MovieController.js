@@ -1,3 +1,7 @@
+const UserModel = require('../modules/BookModels');
+const mongoose = require('mongoose');
+const multer = require('multer')
+const fs = require("fs")
 const firstPage = async (req, res) => {
 
     let data = await UserModel.find({})
@@ -29,6 +33,7 @@ const addData = async (req, res) => {
 
 const deletRecord = async (req, res) => {
     let id = new mongoose.Types.ObjectId(req.query.id);
+    
     // console.log("id ====> ", id);
     await UserModel.findByIdAndDelete(id).then((data) => {
         console.log("user delete");

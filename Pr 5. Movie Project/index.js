@@ -4,7 +4,7 @@ const port = 7200;
 require('./config/db')
 const app = express()
 const mongoose = require('mongoose');
-const UserModel = require('./modules/BookModels');
+const UserModel = require('./modules/BookModels');  
 
 app.set('view engine', 'ejs');
 
@@ -69,6 +69,19 @@ app.use('/',require('./Routes/indexRoute'))
 //     })
 //     return res.redirect('/')
 // })
+app.use("/uploads", express.static(path.join(__dirname,"uplods")));
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '/tmp/my-uploads')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+  })
+  
+  const  fileupload = multer({ storage: storage }.single("avtar"));
+
 
 app.listen(port, (err) => {
     if (err) {
