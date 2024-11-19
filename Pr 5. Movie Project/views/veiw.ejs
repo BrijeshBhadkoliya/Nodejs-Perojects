@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NETFLIX</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <style>
+    *,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:root {
+  --ink-color: #222;
+  --hover-color: #555;
+  --book-cover-color: #be8f3c;
+  --field-color: #f0eedb;
+  --paper-color: #e1ddb8;
+  --margin: 0 auto 20px;
+  --padding: 20px;
+  --bg:  linear-gradient(360deg, rgba(0, 0, 0, 0.8500) 8.000%, rgba(0, 0, 0, 0.8465) 15.67%, rgba(0, 0, 0, 0.8361) 23.33%, rgba(0, 0, 0, 0.8187) 31.00%, rgba(0, 0, 0, 0.7944) 38.67%, rgba(0, 0, 0, 0.7632) 46.33%, rgba(0, 0, 0, 0.7250) 54.00%, rgba(0, 0, 0, 0.6868) 61.67%, rgba(0, 0, 0, 0.6556) 69.33%, rgba(0, 0, 0, 0.6312) 77.00%, rgba(0, 0, 0, 0.6139) 84.67%, rgba(0, 0, 0, 0.6035) 92.33%, rgba(0, 0, 0, 0.6000) 100.0%),
+    url(https://assets.nflxext.com/ffe/siteui/vlv3/03ad76d1-e184-4d99-ae7d-708672fa1ac2/web/IN-en-20241111-TRIFECTA-perspective_149877ab-fcbd-4e4f-a885-8d6174a1ee81_large.jpg);
+  --shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+}
+
+html {
+  font-size: 1.25rem;
+  color: white;
+}
+
+body,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+body {
+  font-family: "Style Script", cursive;
+  background-image: var(--bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.error {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 5vmax;
+}
+
+h1,
+h2 {
+  font-family: "MonteCarlo", cursive;
+}
+
+ul {
+  padding-left: 25px;
+}
+
+ol {
+  padding-left: 20px;
+}
+
+a,
+i {
+  cursor: pointer;
+}
+
+a:hover,
+a:focus,
+i:hover,
+i:focus {
+  color: var(--hover-color);
+}
+
+.active {
+  text-underline-offset: 2px;
+  text-decoration: underline;
+}
+
+h2.hdg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h2 i:first-child {
+  margin-right: 20px;
+}
+
+.book,
+.paper {
+  border-radius: 0.75em;
+}
+
+.book,
+.paper.list {
+  max-width: 1000px;
+}
+
+.paper.list::-webkit-scrollbar,
+.book .paper::-webkit-scrollbar,
+#activity-log::-webkit-scrollbar {
+  width: 10px;
+}
+
+.paper.list::-webkit-scrollbar-thumb,
+.book .paper::-webkit-scrollbar-thumb,
+#activity-log::-webkit-scrollbar-thumb {
+  background: var(--ink-color);
+}
+
+.paper.list::-webkit-scrollbar-thumb:hover,
+.book .paper::-webkit-scrollbar-thumb:hover,
+#activity-log::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
+}
+
+.book {
+  background: var(--book-cover-color);
+  margin: var(--margin);
+  padding: 0 var(--padding);
+  box-shadow: var(--shadow);
+}
+
+/* .paper.list,
+.book .paper {
+  overflow: auto;
+} */
+
+.book .paper {
+  height: 300px;
+}
+
+.paper {
+  background: transparent;
+  width: 100%;
+  /* padding: var(--padding); */
+}
+
+.hdg.paper,
+.paper.list {
+  /* border: 10px solid var(--book-cover-color); */
+  margin: var(--margin);
+  /* box-shadow: var(--shadow); */
+}
+
+.paper.list {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  height: 90px;
+}
+
+.paper.list a:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.hdg.paper {
+  width: 350px;
+  text-align: center;
+}
+
+/* overlay */
+#overlay,
+form,
+#btn-container,
+.col {
+  display: flex;
+}
+
+textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: var(--ink-color);
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
+}
+
+#overlay,
+form {
+  justify-content: center;
+  align-items: center;
+}
+
+#overlay {
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+form,
+.col {
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+form,
+#activity-log {
+  position: relative;
+  background: var(--paper-color);
+  width: 90vw;
+  border: 2px solid white;
+  padding: var(--padding);
+  overflow: auto;
+}
+
+form {
+  max-width: 500px;
+}
+
+.col {
+  max-width: 450px;
+  width: 90%;
+}
+
+input,
+textarea,
+button {
+  font-family: inherit;
+  background: transparent ;
+  border: 2px solid  white;
+  color: white;
+
+}
+
+/* button{
+  font-family: inherit;
+  background:  red ;
+  border: 2px solid  white;
+  color: white;
+
+} */
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus,
+button:hover,
+button:focus {
+  border: 3px solid  white;
+
+}
+::placeholder{
+  color: white;
+
+}
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+input[type="text"],
+textarea {
+  padding: 10px;
+}
+
+input:not([type="text"]),
+button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+input:not([type="text"]):first-child {
+  margin-right: 10px;
+}
+
+textarea {
+  resize: none;
+}
+
+#close {
+  position: absolute;
+  cursor: pointer;
+  top: .75em;
+  right: .75em;
+}
+
+#activity-log {
+  max-width: 1000px;
+  max-height: 90vh;
+}
+
+#activity-log p {
+  margin: 0;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#activity-log h2,
+#activity-log .activity {
+  border-bottom: 2px solid var(--ink-color);
+}
+
+#activity-log .activity {
+  padding: 0.5em 0;
+}
+
+#activity-log div.activity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.col-2 {
+  display: grid;
+  grid-template-columns: 80px auto;
+  pointer-events: none;
+  touch-action: none;
+}
+.row{
+  display: flex;
+  flex-wrap: wrap;
+}
+.col-4{
+  width: 33.33%;
+  flex:0 0 auto;
+}
+.paper.list span {
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      background-color: #222;
+      border: none;
+    }
+    .card-title {
+      color: #fff;
+    }
+    .btn-danger, .btn-primary {
+      margin: 5px;
+    }
+    a {
+      text-decoration: none;
+    }
+button {
+  margin-top: 0.5em;
+}
+  </style>
+</head>
+<body>
+   
+  <div class="paper list">
+    <span style="color: rgb(229,9,20); font-weight: 800; font-size: 45px; margin-right: auto;">NETFLIX</span>
+     <a class="active" data-id="1" href="/add" style="color: white;">Add Movie</a>
+       
+   </div>
+
+  <!-- Container -->
+  <div class="container">
+    <div class="paper hdg text-center my-5">
+      <h1>Book Table</h1>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="row">
+      <% data.map((val, i) => {
+        const { _id, name, price, pages, description } = val; %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="..." class="card-img-top" alt="Book image">
+            <div class="card-body">
+              <h3 class="card-title"><%= name %></h3>
+              <h6 class="card-title" style="font-size: 25px; margin-top: 18px;">$<%= price %></h6>
+              <p class="card-text" style="color: white; margin-top: 25px; font-size: 16px; max-width: 280px;"> <%= pages %></p>
+              <div class="d-flex">
+                <a class="btn btn-danger" href="/deletRecord?id=<%= _id %>">Delete</a>
+                <a class="btn btn-primary" href="/editData?id=<%= _id %>">Edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
