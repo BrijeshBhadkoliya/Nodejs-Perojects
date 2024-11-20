@@ -13,27 +13,26 @@ const add = (req, res) => {
 };
 
 const addData = async (req, res) => {
-    const { name, price, pages, description } = req.body;
+
+    const { name, price, pages } = req.body;
+    console.log(req.file);
+
     await UserModel.create({
-        name,
+        name: name,
         price,
         pages,
-        description
-    }).then((data, err) => {
-        if (err) {
-            console.log(err);
-            return false;
-        }
-        console.log('record add');
-        return res.redirect('/');
-
+        description: req.file.path
     })
+    console.log('record add');
+    return res.redirect('/');
+
 
 };
 
 const deletRecord = async (req, res) => {
     let id = new mongoose.Types.ObjectId(req.query.id);
-    
+    let singal = await usersmodel.findById(id)
+    fs.unlinkSync(singal.description)
     // console.log("id ====> ", id);
     await UserModel.findByIdAndDelete(id).then((data) => {
         console.log("user delete");
@@ -50,15 +49,35 @@ const editData = async (req, res) => {
     return res.render('edit', { data })
 }
 const Upgreat = async (req, res) => {
-    const { editId, name, price, pages, description } = req.body
-    await UserModel.findByIdAndUpdate(editId, {
-        name,
-        price,
-        pages,
-        description
-    })
-    return res.redirect('/')
-}
+    const { editId, name, price, pages } = req.body
+
+    if (req.file) {
+
+        let singal = await usersmodel.findById(editid)
+        fs.unlinkSync(singal.description)
+
+        await UserModel.findByIdAndUpdate(editId, {
+            name,
+            price,
+            pages,
+            description: req.file.path
+        })
+        return res.redirect('/')
+    } else {
+
+        const single = await usersmodel.findById(editid);
+
+        await usersmodel.findByIdAndUpdate(editid, {
+            name: name,
+            desc: desc,
+            price: price,
+            description: single.description
+        })
+        return res.redirect('/views');
+    }
+
+}  
+ 
 
 module.exports = {
     firstPage, add, addData, deletRecord, editData, Upgreat
