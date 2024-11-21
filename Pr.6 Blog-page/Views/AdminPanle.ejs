@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/Admin-panle.css" />
+    <script src="../User/css/Tailwind.css"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+
+<style>
+  
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Theme Variables */
+:root {
+    --bg-color-light: #f4f6f9;
+    --bg-color-dark: #2c3e50;
+    --text-color-light: #2c3e50;
+    --text-color-dark: #ecf0f1;
+    --primary-color: #2980b9;
+}
+
+body {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+}
+
+.containear {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar .menu {
+    list-style: none;
+}
+
+.sidebar .menu li {
+    margin: 15px 0;
+}
+
+/* Profile Info Section in Sidebar */
+.profile-info {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-color-dark);
+}
+
+.profile-info-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #fff;
+}
+
+.profile-info-name {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.profile-info-account {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #bdc3c7;
+}
+
+.profile-info-rating {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.sidebar .menu a {
+    text-decoration: none;
+    color: var(--text-color-dark);
+    font-size: 18px;
+    padding: 10px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar .menu a:hover, .sidebar .menu a.active {
+    background-color: #34495e;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.header-left h1 {
+    font-size: 24px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+#theme-toggle {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--bg-color-dark);
+    color: #fff;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.profile-box {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile-name {
+    font-size: 18px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px; /* To align content with sidebar */
+}
+
+.center-content {
+    /* text-align: center; */
+    display: none;
+}
+
+.center-content.active {
+    display: block;
+   
+}
+.contector.active{
+    justify-content: center;
+    display: flex  ;
+    margin-top: 25px;
+}
+.center-content h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.center-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.dashboard-cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.card h3 {
+    font-size: 18px;
+    color: var(--text-color-light);
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 24px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Panel Below */
+.panel-below {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--bg-color-dark);
+    padding: 20px;
+    color: var(--text-color-dark);
+}
+
+.panel-section {
+    flex: 1;
+    text-align: center;
+}
+
+.panel-section h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.panel-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    margin: 10px 0;
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+body.dark-theme .card {
+    background-color: var(--bg-color-light);
+}
+
+body.dark-theme .panel-below {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+.main-form{
+width: 560px;
+}
+</style>
+
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">Admin Panel</div>
+      <!-- Profile Info Section -->
+      <div class="profile-info">
+        <img src="#" class="profile-info-pic" />
+        <h3 class="profile-info-name">Admin Name</h3>
+        <p class="profile-info-account">Account: admin@example.com</p>
+        <p class="profile-info-rating">Rating: ★★★★☆</p>
+      </div>
+
+      <ul class="menu">
+        <li>
+          <a href="#" id="dashboard-menu" class="active">Admin Dashbord</a>
+        </li>
+        <li><a href="#" id="analytics-menu">Table Lists</a></li>
+        <li><a href="#" id="users-menu">Users View</a></li>
+        <li><a href="#" id="settings-menu">Cart Lists</a></li>
+      </ul>
+    </aside>
+
+    <div class="containear">
+      <!-- Header Dashboard -->
+      <header class="header">
+        <div class="header-left">
+          <h1>Admin Dashboard</h1>
+        </div>
+        <div class="header-right">
+          <button id="theme-toggle">Toggle Theme</button>
+        </div>
+      </header>
+
+      <!-- Center Content Dashboard -->
+      <main class="main-content">
+        <section id="dashboard-content" class="center-content active contector">
+          <!-- Product form  -->
+          <div class="main-form">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Product Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="pName"
+                aria-describedby="emailHelp"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Product Price</label
+              >
+              <input type="text" class="form-control" id="pPrice" />
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Product Detaile</label
+              >
+              <input type="address" class="form-control" id="pDetaile" />
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Product Img Link</label
+              >
+              <input type="address" class="form-control" id="pImg" />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary mb-[60px]"
+              onclick="submit()"
+            >
+              Submit
+            </button>
+          </div>
+        </section>
+
+        <section id="users-content" class="center-content">
+          
+          <div class="container">
+            <div class="row" id="row"></div>
+          </div>
+          <!-- Additional user management content goes here -->
+        </section>
+
+        <section id="analytics-content" class="center-content">
+          <!-- Additional analytics content goes here -->
+          <!-- Product table  -->
+          <table class="table table-striped table-hover">
+            <thead>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Details</th>
+              <th>Img</th>
+              <th>View</th>
+              <th>Delete</th>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </section>
+
+        <section id="settings-content" class="center-content">
+          <h2>Settings</h2>
+          <p>Adjust your settings here.</p>
+          <!-- Additional settings content goes here -->
+        </section>
+      </main>
+
+      <!-- Panel Below -->
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      let kol = JSON.parse(localStorage.getItem("Product"));
+      let row = document.getElementById("row");
+      kol.map((val, index) => {
+        console.log(val);
+        row.innerHTML = `
+            <div class="col-3">
+            <div class="card" style="width: 18rem;">
+                <img src="${val.Img}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                  <h3 class="card-title">${val.Name}</h3>
+                  <h5 class="card-title">${val.Price}</h5>
+                  <p class="card-text">${val.Detail}</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                 </div>
+           </div>
+           </div>
+            `;
+      });
+    </script>
+
+    <script>
+      let Products = JSON.parse(localStorage.getItem("Product")) || [];
+      let tbody = document.getElementById("tbody");
+
+      function submit() {
+        let Name = document.getElementById("pName").value;
+        let Price = document.getElementById("pPrice").value;
+        let Detail = document.getElementById("pDetaile").value;
+        let Img = document.getElementById("pImg").value;
+
+        let productObject = {
+          Name,
+          Price,
+          Detail,
+          Img,
+        };
+        // console.log(productObject);
+        Products.push(productObject);
+        localStorage.setItem("Product", JSON.stringify(Products));
+        location.reload();
+      }
+
+      function productTable() {
+        Products.map((val, index) => {
+          console.log(val);
+
+          let tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${val.Name}</td>
+            <td>${val.Price}</td>
+            <td>${val.Detail}</td>
+            <td><img src='${val.Img}' width="80px" height="80px"></td>
+            <td><button>view</button></td>
+            <td><button>Delet</button></td>
+            `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      productTable();
+    </script>
+    <script>
+      // JavaScript to toggle between dark and light themes
+      document
+        .getElementById("theme-toggle")
+        .addEventListener("click", function () {
+          document.body.classList.toggle("dark-theme");
+        });
+
+      // JavaScript to handle sidebar menu click and change center content
+      const menuItems = document.querySelectorAll(".menu a");
+      const contentSections = document.querySelectorAll(".center-content");
+
+      menuItems.forEach((item) => {
+        item.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          // Remove 'active' class from all menu items and center content
+          menuItems.forEach((menu) => menu.classList.remove("active"));
+          contentSections.forEach((section) =>
+            section.classList.remove("active")
+          );
+
+          // Add 'active' class to the clicked menu item
+          this.classList.add("active");
+
+          // Show the corresponding content section
+          const contentId = this.id.replace("-menu", "-content");
+          document.getElementById(contentId).classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>
