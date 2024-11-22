@@ -275,21 +275,21 @@ width: 560px;
   <body>
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="logo">Admin Panel</div>
+      <div class="logo">User Panel</div>
       <!-- Profile Info Section -->
       <div class="profile-info">
         <img src="#" class="profile-info-pic" />
-        <h3 class="profile-info-name">Admin Name</h3>
-        <p class="profile-info-account">Account: admin@example.com</p>
+        <h3 class="profile-info-name"><%= user.name %></h3>
+        <p class="profile-info-account"><%= user.email %></p>
         <p class="profile-info-rating">Rating: ★★★★☆</p>
       </div>
 
       <ul class="menu">
         <li>
-          <a href="#" id="dashboard-menu" class="active">Admin Dashbord</a>
+          <a href="#" id="dashboard-menu" class="active">Add Bolgs</a>
         </li>
-        <li><a href="#" id="analytics-menu">Table Lists</a></li>
-        <li><a href="#" id="users-menu">Users View</a></li>
+        <li><a href="#" id="analytics-menu">Your Bolgs</a></li>
+        <li><a href="#" id="users-menu">See other blogs</a></li>
         <li><a href="#" id="settings-menu">Cart Lists</a></li>
       </ul>
     </aside>
@@ -298,10 +298,12 @@ width: 560px;
       <!-- Header Dashboard -->
       <header class="header">
         <div class="header-left">
-          <h1>Admin Dashboard</h1>
+          <h1>Welcome ,  <%= user.name %> This is Your Panal</h1>
         </div>
         <div class="header-right">
           <button id="theme-toggle">Toggle Theme</button>
+          <button id="theme-toggle" > <a href="/Logout" style="color: white; text-decoration: none;">Log out</a> </button>
+
         </div>
       </header>
 

@@ -14,6 +14,10 @@ const userSchema = mongoose.Schema({
         type : String,
         required : true,
     }
+    // imges:{
+    //     type:String,
+    //     require :true,
+    // }
 })
 
 const user = mongoose.model('user', userSchema);

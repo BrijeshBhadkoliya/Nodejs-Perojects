@@ -244,17 +244,19 @@ body.active{
 
       <div class="formBx">
         <!-- User Registration Form -->
-        <form class="form signinForm"  action="/RgisterData" method="post" return false;">
+        <form class="form signinForm"  action="/RgisterData" method="post"    >
           <h3>Register Form</h3>
           <input type="text" placeholder="Enter Your Username " id="userName" name="name" required/>
           <input type="text" placeholder="Enter Your Email" id="userName" name="email" required/>
           <input type="text" placeholder="Enter Your Password" id="Upass" name="password" required />
+          <!-- <input type="file" placeholder="Enter Your Password" id="Upass" name="password" required /> -->
+
           <input type="submit" value="Submit" class="signupbtn" />
           <a href="#" class="forgot">Forgot Password</a>
         </form>
       
         <!-- Admin Login Form -->
-        <form class="form signupForm" onsubmit="adminName(); return false;">
+        <form class="form signupForm" onsubmit="adminName();">
           <h3>Login Form</h3>
           <input type="text" placeholder="Admin Name (admin)" id="adminName" />
           <input type="text" placeholder="Admin password (admin)" id="aPass" />
