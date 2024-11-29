@@ -25,14 +25,11 @@ const addData = async (req, res) => {
     })
     console.log('record add');
     return res.redirect('/');
-
-
 };  
 
 const deletRecord = async (req, res) => {
     let id = new mongoose.Types.ObjectId(req.query.id);
-
-    
+        
     let singal = await UserModel.findById(id)
     fs.unlinkSync(singal.description)
     // console.log("id ====> ", id);
@@ -53,6 +50,8 @@ const Upgreat = async (req, res) => {
     if (req.file) {
 
         let singal = await UserModel.findById(editId)
+        console.log(singal);
+        
         fs.unlinkSync(singal.description)
 
         await UserModel.findByIdAndUpdate(editId, {

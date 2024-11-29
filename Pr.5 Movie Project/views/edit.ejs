@@ -342,7 +342,7 @@ button {
 
   </div> 
  
-  <form class="recipe-form hdg paper" style="width: 660px; margin-top: 150px;" action="/Upgreat " method="post">
+  <form class="recipe-form hdg paper" style="width: 660px; margin-top: 150px;" action="/Upgreat " method="post" enctype="multipart/form-data">
  
  
     <h2  style="margin-bottom: 30px; font-size: 35px; color: white;">Update Movie</h2>
@@ -358,8 +358,8 @@ button {
 
 
     <label for="recipe-description" style="margin-bottom: 20px;">Imges:</label>
-    <input id="recipe-description" rows="4" type="file" name="imge" value="<%= data.description %>" style="margin-bottom: 13px; width: 350px;"  ></input>
-
+    <input id="recipe-description" rows="4" type="file" name="description"   style="margin-bottom: 13px; width: 350px; width: 350px;"  ></input>
+<img src="<%= data.description %>" alt="" width="250px">
     <button type="submit" >Upgreat</button>
 
   </form>

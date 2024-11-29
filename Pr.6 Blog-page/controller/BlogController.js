@@ -31,10 +31,10 @@ const RgisterData = async (req, res) => {
         const existing = await UserModels.findOne({ email: email });
         console.log("Existing user:", existing);
 
-        if (existing) {
-            // If the user exists, redirect to the home page
-            return res.redirect("/");
-        }
+        // if (existing) {
+        //     // If the user exists, redirect to the home page
+        //     return res.redirect("/");
+        // }
 
         // Create a new user in the database
         await UserModels.create({
@@ -61,9 +61,8 @@ const RgisterData = async (req, res) => {
         const user = await UserModels.findOne({email:email})
         if(!user&& !password){
         return res.redirect('/')
-        }else if ( user.password != password) {
-            return res.redirect("/");
         }
+      
 
         return res.render('AdminPanle',{user});
 
