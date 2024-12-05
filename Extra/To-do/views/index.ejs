@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      input {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        padding: 5px 7px;
+        border: none;
+        border-radius: 8px;
+        width: 200px;
+        height: 28px;
+      }
+      label {
+        font-size: 17px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <center>
+      <h1>To-do list</h1>
+    </center>
+
+    <center>
+      <h3 style="margin-bottom: 0px; margin-top: 50px">Add New Task</h3>
+    </center>
+
+    <div
+      style="
+        height: 280px;
+        width: 250px;
+        border-radius: 15px;
+        background: #e9e8e8;
+        margin: 20px auto 30px;
+        padding: 15px;
+      "
+    >
+      <form action="/includedData" method="post">
+        <label for="">Task</label>
+        <input type="text" placeholder="Enter your Task" name="task" />
+        <label for="">Status</label>
+        <input type="text" placeholder="Enter Status" name="status" />
+        <label for="">Deadline</label>
+        <input
+          type="datetime-local"
+          name="dedline"
+          style="margin-bottom: 20px"
+        />
+
+        <input
+          type="submit"
+          name="submit"
+          value="Submit"
+          style="
+            font-size: 16px;
+            height: 35px;
+            width: 150px;
+            background: #00c531;
+            color: white;
+            margin-top: 0px;
+            margin-left: 30px;
+            margin-bottom: 20px;
+            padding: auto;
+          "
+        />
+      </form>
+    </div>
+<center>
+    <h3 style="margin-bottom: 20px; margin-top: 30px;">Table list</h3>
+</center>
+<div style="width: 1300px; margin: 0px auto;">
+    <table class="table table-bordered">
+      <thead class="table-primary">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Task</th>
+          <th scope="col">Status</th>
+          <th scope="col">Deadline</th>
+          <th scope="col">Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+       <% tasks.map((val)=>{ %>
+
+        <tr></tr>
+          <th scope="row"><%= val.id %></th>
+          <td><%= val.task %></td>
+          <td><%= val.status %></td>
+          <td><%= val.dedline %></td>
+          <td>
+           <a href="/editid?editid=<%= val.id %>"> <button type="button" class="btn btn-info text-white">Edit</button></a>
+            <a href="/deletdata?deletId=<%= val.id %>"><button type="button" class="btn btn-danger" >Delete</button></a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  </body>
+</html>
