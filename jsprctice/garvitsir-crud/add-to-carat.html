@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Cart</h1>
+
+    <div class="row" id="row"></div>
+
+    <script>
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      let row = document.getElementById("row");
+      //   console.log(cart);
+
+      function loadCart() {
+        cart.map((val, index) => {
+          console.log(val);
+          let div = document.createElement("div");
+          div.innerHTML = `
+          
+          <img src='${val.img}' height=250 width=250/>
+            <h1>${val.productName}</h1>
+            <h2>${val.price}</h2>
+            <p>${val.desc}</p>
+            <button>delete</button>
+ 
+          `;
+
+          row.appendChild(div);
+        });
+      }
+
+      loadCart();
+    </script>
+  </body>
+</html>

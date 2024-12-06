@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1 class="m-5">Admin Dashboard</h1>
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#exampleModal"
+    >
+      Add
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Product Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter product name"
+                id="pname"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                placeholder="price"
+                id="price"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Description</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Description"
+                id="desc"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Image</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="img https://"
+                id="img"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="addProduct()"
+            >
+              Add product
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table m-5">
+      <thead>
+        <th>Id</th>
+        <th>image</th>
+        <th>ProductName</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>View</th>
+        <th>Delete</th>
+        <th>isActive</th>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </body>
+
+  <script>
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+    let tbody = document.getElementById("tbody");
+
+    //add product
+    function addProduct() {
+      let productName = document.getElementById("pname").value;
+      let price = document.getElementById("price").value;
+      let desc = document.getElementById("desc").value;
+      let img = document.getElementById("img").value;
+
+      let product = {
+        productName,
+        price,
+        desc,
+        img,
+        isActive: true,
+      };
+
+      products.push(product);
+
+      localStorage.setItem("products", JSON.stringify(products));
+      location.reload();
+    }
+
+    //load product
+    function loadProduct() {
+      products.map((val, index) => {
+        console.log(val);
+
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
+
+        <td>${index + 1}</td>
+        <td><img src='${val.img}' height=50 width=50/></td>
+        <td>${val.productName}</td>
+        <td>${val.price}</td>
+        <td>${val.desc}</td>
+        <td>  <button>view</button></td>
+        <td>  <button>delete</button></td>
+        <td>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input" ${
+                      val.isActive && "checked"
+                    }>
+                    </div>
+                </div>
+               
+                </div>    
+        </td>
+
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    loadProduct();
+  </script>
+</html>

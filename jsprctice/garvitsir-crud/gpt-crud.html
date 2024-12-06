@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD with Login and Add to Cart</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 8px; text-align: left; }
+        #crudForm input, #loginForm input { margin-right: 10px; }
+        #cart { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="loginSection">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message" style="color:red;"></p>
+    </div>
+
+    <!-- CRUD and Add to Cart Section -->
+    <div id="crudSection" style="display:none;">
+        <h2>CRUD Operations</h2>
+        <form id="crudForm">
+            <input type="text" id="item" placeholder="Enter item" required>
+            <button type="submit">Add Item</button>
+        </form>
+
+        <table id="itemTable">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Items will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <div id="cart">
+            <h2>Shopping Cart</h2>
+            <ul id="cartItems">
+                <!-- Cart items will be listed here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let items = [];
+        let cart = [];
+
+        // Login Functionality
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if(username === 'admin' && password === '1234') {
+                alert('Login successful!');
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('crudSection').style.display = 'block';
+            } else {
+                document.getElementById('error-message').textContent = 'Invalid username or password!';
+            }
+        });
+
+        // CRUD Functionality
+        document.getElementById('crudForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const itemInput = document.getElementById('item');
+            const item = itemInput.value.trim();
+
+            if(item) {
+                items.push(item);
+                itemInput.value = ''; // Clear the input field
+                renderTable();
+            }
+        });
+
+        function renderTable() {
+            const tableBody = document.querySelector('#itemTable tbody');
+            tableBody.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const row = document.createElement('tr');
+                
+                const itemCell = document.createElement('td');
+                itemCell.textContent = item;
+                row.appendChild(itemCell);
+                
+                const actionCell = document.createElement('td');
+                actionCell.innerHTML = `
+                    <button onclick="editItem(${index})">Edit</button>
+                    <button onclick="deleteItem(${index})">Delete</button>
+                    <button onclick="addToCart(${index})">Add to Cart</button>
+                `;
+                row.appendChild(actionCell);
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        function editItem(index) {
+            const newItem = prompt('Edit item:', items[index]);
+            if(newItem !== null && newItem.trim() !== '') {
+                items[index] = newItem.trim();
+                renderTable();
+            }
+        }
+
+        function deleteItem(index) {
+            items.splice(index, 1);
+            renderTable();
+        }
+
+        // Add to Cart Functionality
+        function addToCart(index) {
+            const item = items[index];
+            cart.push(item);
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartList = document.getElementById('cartItems');
+            cartList.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                cartList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>

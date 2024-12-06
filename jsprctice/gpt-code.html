@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <table border="1" cellpadding="20px" style="margin: 10px auto 50px auto">
+      <thead style="font-size: 25px">
+        <tr>
+          <td>
+            Name:
+            <input
+              type="text"
+              id="Name"
+              style="
+                width: 190px;
+                height: 20px;
+                border: 1px solid #000;
+                border-radius: 10px;
+              "
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Phone:
+            <input
+              type="text"
+              id="Phone"
+              style="
+                width: 190px;
+                height: 20px;
+                border: 1px solid #000;
+                border-radius: 10px;
+              "
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Email:
+            <input
+              type="text"
+              id="Email"
+              style="
+                width: 190px;
+                height: 20px;
+                border: 1px solid #000;
+                border-radius: 10px;
+              "
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="Submit"
+              id="add"
+              onclick="submitdata()"
+              style="
+                width: 190px;
+                height: 40px;
+                border-radius: 8px;
+                background: #000;
+                color: #fff;
+                font-size: 20px;
+                cursor: pointer;
+              "
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="Edit"
+              id="edit"
+              style="
+                width: 190px;
+                height: 40px;
+                border-radius: 8px;
+                background: #000;
+                color: #fff;
+                font-size: 20px;
+                cursor: pointer;
+              "
+            />
+          </td>
+        </tr>
+      </thead>
+    </table>
+
+    <table border="1" cellpadding="20px" style="margin: 0px auto">
+      <thead>
+        <tr style="font-size: 25px">
+          <td>Id</td>
+          <td>Name</td>
+          <td>Phone</td>
+          <td>Email</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <script>
+      let data = JSON.parse(localStorage.getItem("data")) || [];
+
+      function renderTable() {
+        let tbody = document.getElementById("tbody");
+        tbody.innerHTML = ""; // Clear previous rows
+
+        data.forEach((val) => {
+          tbody.innerHTML += `
+                <tr>
+                    <td>${val.id}</td>
+                    <td>${val.name}</td>
+                    <td>${val.phone}</td>
+                    <td>${val.email}</td>
+                    <td>
+                        <input type="button" value="Delete" id="delete" onclick="delet(${val.id})"
+                            style="width: 190px; height: 40px; border-radius: 8px; background: #000; color: #fff; font-size: 20px; cursor: pointer;">
+                        <input type="button" value="Update" id="Update" onclick="updateData(${val.id})"
+                            style="width: 190px; height: 40px; border-radius: 8px; background: #000; color: #fff; font-size: 20px; cursor: pointer;">
+                    </td>
+                </tr>
+                `;
+        });
+      }
+
+      function submitdata() {
+        let name = document.getElementById("Name").value;
+        let phone = document.getElementById("Phone").value;
+        let email = document.getElementById("Email").value;
+
+        let obj = {
+          id: Math.floor(Math.random() * 1000),
+          name,
+          phone,
+          email,
+        };
+
+        data.push(obj);
+        localStorage.setItem("data", JSON.stringify(data));
+
+        document.getElementById("Name").value = "";
+        document.getElementById("Phone").value = "";
+        document.getElementById("Email").value = "";
+
+        renderTable(); // Re-render the table
+      }
+
+      function delet(id) {
+        data = data.filter((val) => val.id != id);
+        localStorage.setItem("data", JSON.stringify(data));
+        renderTable(); // Re-render the table
+      }
+
+      function updateData(id) {
+        // Implementation of update functionality should go here
+        // This could involve populating the form with the existing data and then updating it
+      }
+
+      // Initial rendering of the table when the page loads
+      renderTable();
+    </script>
+  </body>
+</html>
