@@ -1,10 +1,21 @@
 const express = require("express");
 
-const { Register, RgisterData , LoginData , Logout ,  firstPage, add, addData, deletRecord, editData, Upgreat  } = require("../controller/BlogController");
+const {
+  Register,
+  RgisterData,
+  LoginData,
+  Logout,
+  firstPage,
+  add,
+  addData,
+  deletRecord,
+  editData,
+  Upgreat
+ 
+} = require("../controller/BlogController");
 const user = require("../models/LoginModels");
 const Router = express.Router();
-const multer = require('multer')
-
+const multer = require("multer");
 
 // const storage = multer.diskStorage({
 //     destination: function (req, file, cb) {
@@ -15,17 +26,17 @@ const multer = require('multer')
 //       cb(null, file.fieldname + '-' + uniqueSuffix)
 //     }
 //   })
-  
+
 //   const upload = multer({ storage: storage }).single("imges")
 
- Router.get('/',Register)
-Router.post('/RgisterData',RgisterData)
-Router.post('/LoginData',LoginData)
-Router.get('/Logout',Logout)
-Router.get('/', firstPage );
-Router.get('/add', add );
-Router.post('/addData', fileupload , addData );
+Router.get("/", Register);
+Router.post("/RgisterData", RgisterData);
+Router.post("/LoginData", LoginData);
+Router.get("/Logout", Logout);
+Router.get("/", firstPage);
+Router.get("/add", add);
+Router.post("/addData", addData);
 Router.get('/deletRecord', deletRecord );
 Router.get('/editData', editData );
-Router.post('/Upgreat',fileupload, Upgreat );
+Router.post('/Upgreat',   Upgreat );
 module.exports = Router;

@@ -1,7 +1,8 @@
 const express = require('express')
 const UserModels = require('../models/LoginModels');
 const { render } = require('ejs');
-
+const  DataModel = require('../models/BlogData');
+const mongoose = require('mongoose');
 const Register = (req , res) => {
     return res.render('Register');
 } 
@@ -81,67 +82,70 @@ const RgisterData = async (req, res) => {
     return  res.render('Login')
 }
 const addData = async (req, res) => {
+    
+    const { Heading, Date, Description} = req.body;
+    // console.log(req.file);
 
-    const { name, price, pages } = req.body;
-    console.log(req.file);
-
-    await UserModel.create({
-        name,
-        price,
-        pages,
+     await DataModel.create({
+        Heading,
+        Date,
+        Description,
         description: req.file.path
     })
+    data = await DataModel.find({})
     console.log('record add');
-    return res.redirect('/');
+    return res.render('view',{data});
 };  
 
 const deletRecord = async (req, res) => {
     let id = new mongoose.Types.ObjectId(req.query.id);
         
-    let singal = await UserModel.findById(id)
+    await DataModel.findById(id)
     fs.unlinkSync(singal.description)
-    // console.log("id ====> ", id);
-    await UserModel.findByIdAndDelete(id) 
+    console.log("id ====> ", id);
+    await DataModel.findByIdAndDelete(id) 
         console.log("user delete");
-        return res.redirect('AdminPanle')
-     
+        return res.render('view')
+       
 }
 
 const editData = async (req, res) => {
     const id = new mongoose.Types.ObjectId(req.query.id)
-    const data = await UserModel.findById(id)
+    console.log(id);
+    
+    const data = await DataModel.findById(id)
     return res.render('edit', { data })
 }
 const Upgreat = async (req, res) => {
     const { editId, name, price, pages } = req.body
 
-    if (req.file) {
+    // if (req.file) {
 
-        let singal = await UserModel.findById(editId)
-        console.log(singal);
+        // let singal = await DataModel.findById(editId)
+        // console.log(singal);
         
-        fs.unlinkSync(singal.description)
+        // fs.unlinkSync(singal.description)
 
-        await UserModel.findByIdAndUpdate(editId, {
-            name,
-            price,
-            pages,
-            description: req.file.path
+        await DataModel.findByIdAndUpdate(editId, {
+            Heading,
+            Date,
+            Description,
+            // description: req.file.path
         })
-        return res.redirect('AdminPanle')
-    } else {
+        return res.redirect('view')
+    // } else {
 
-        const single = await UserModel.findById(editId);
+    //     const single = await DataModel.findById(editId);
 
-        await UserModel.findByIdAndUpdate(editId, {
-            name,
-            price,
-            pages,
-            description: single.description
-        })
-        return res.redirect('AdminPanle');
-    }
+    //     await DataModel.findByIdAndUpdate(editId, {
+    //         Heading,
+    //         Date,
+    //         Description,
+    //         // description: single.description
+    //     })
+    //     return res.redirect('AdminPanle');
+    // }
 
 }  
 
-module.exports = {Register , RgisterData ,LoginData , Logout ,  firstPage, add, addData, deletRecord, editData, Upgreat }
+module.exports = {Register , RgisterData ,LoginData , Logout ,  firstPage, add, addData,deletRecord ,Upgreat,editData }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% (data || []).map((val, i) => { %>   
+    <form class="recipe-form hdg paper" style="width: 660px;" action="/Upgreat" method="post">
+        <h2 style="margin-bottom: 30px; font-size: 35px; color: white;">Edit Blog</h2>
+        
+        <label for="recipe-name" style="margin-bottom: 5px; color: white;">Blog Name:</label>
+        <input type="text" id="recipe-name" placeholder="Enter Blog Name" value="<%= val.Heading %>" name="Heading" style="margin-bottom:13px; width: 350px;">
+
+        <label for="recipe-date" style="margin-bottom: 5px; color: white;">Blog Date:</label>
+        <input type="date" id="recipe-date" value="<%= val.Date %>" name="Date" style="margin-bottom:13px; width: 350px;">
+        
+        <label for="recipe-description" style="margin-bottom: 20px; color: white;">Description:</label>
+        <textarea id="recipe-description" rows="4" name="Description" style="margin-bottom: 13px; width: 350px;"><%= val.Description %></textarea>
+        
+        <button type="submit">Update Blog</button>
+    <% }) %>
+    </form>
+</body>
+</html>
