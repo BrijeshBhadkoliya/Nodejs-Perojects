@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="email" />
+    <input type="text" id="password" />
+    <button onclick="login()">Login</button>
+
+    <script>
+      let username = "admin";
+      let pass = "123";
+
+      function login() {
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        if (email == username && password == pass) {
+          console.log("login success");
+          location.href = "./admin/dashboard.html";
+        } else {
+          console.log("user login success");
+          location.href = "./user/user.html";
+        }
+      }
+    </script>
+  </body>
+</html>

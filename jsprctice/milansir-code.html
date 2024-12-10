@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud</title>
+</head>
+<body>
+    <div align="center">
+        <h2>Add User</h2>
+        <form>
+            <input type="hidden" id="editid">
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>Name :- </td>
+                        <td><input type="text" id="name"></td>
+                    </tr>
+                    <tr>
+                        <td>Phone :- </td>
+                        <td><input type="text" id="phone"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="button" id="add" onclick="saveRecord()" value="submit">
+                            <input type="button" id="edit" onclick="saveRecord()" value="edit">
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <h2>View User</h2>
+        <table border="1">
+            <thead>
+                <th>Srno</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </thead>
+            <tbody id="users">
+
+            </tbody>
+        </table>
+    </div>
+    <script src="./index.js"></script>
+</body>
+</html>

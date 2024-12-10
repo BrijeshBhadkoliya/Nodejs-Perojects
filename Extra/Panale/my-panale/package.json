@@ -1,0 +1,42 @@
+{
+  "name": "my-panale",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "dev": "kottster dev --port 5480",
+    "dev:add-data-source": "kottster add-data-source",
+    "build": "remix vite:build",
+    "start": "remix-serve ./build/server/index.js"
+  },
+  "dependencies": {
+    "react": "^18.x",
+    "react-dom": "^18.x",
+    "@remix-run/node": "^2.x",
+    "@remix-run/react": "^2.x",
+    "@remix-run/serve": "^2.x",
+    "@kottster/common": "^1.x",
+    "@kottster/cli": "^2.x",
+    "@kottster/server": "^1.x",
+    "@kottster/react": "^1.x",
+    "isbot": "^4.x"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.x",
+    "vite": "^5.x",
+    "vite-tsconfig-paths": "^4.x",
+    "esbuild": "0.23.1",
+    "tailwindcss": "^3.x",
+    "postcss": "^8.x",
+    "autoprefixer": "^10.x",
+    "@originjs/vite-plugin-commonjs": "^1.x",
+    "typescript": "^5.x",
+    "@types/node": "^18.x",
+    "@types/react": "^18.x",
+    "@types/react-dom": "^18.x"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <table border="1" cellpadding="20px " style="margin: 10px auto 50px auto">
+      <thead style="font-size: 25px">
+        <tr>
+          <input type="hidden" id="editid" />
+          <td>
+            Name :-
+            <input
+              type="text"
+              id="Name"
+              style="
+                width: 190px;
+                height: 20px;
+                border: 1px solid #000;
+                border-radius: 10px;
+              "
+            />
+          </td>
+          <br />
+        </tr>
+        <tr>
+          <td>
+            Phone :-
+            <input
+              type="text"
+              id="Phone"
+              style="
+                width: 190px;
+                height: 20px;
+                border: 1px solid #000;
+                border-radius: 10px;
+              "
+            />
+          </td>
+          <br />
+        </tr>
+        <tr>
+          <td>
+            Email :-
+            <input
+              type="text"
+              id="Email"
+              style="
+                width: 190px;
+                height: 20px;
+                border: 1px solid #000;
+                border-radius: 10px;
+              "
+            />
+          </td>
+          <br />
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="Submit"
+              id="add"
+              onclick="submitdata()"
+              style="
+                width: 190px;
+                height: 40px;
+                border-radius: 8px;
+                background: #000;
+                color: #fff;
+                font-size: 20px;
+                cursor: pointer;
+              "
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              type="button"
+              value="Edit"
+              id="edit"
+              onclick="update()"
+              style="
+                width: 190px;
+                height: 40px;
+                border-radius: 8px;
+                background: #000;
+                color: #fff;
+                font-size: 20px;
+                cursor: pointer;
+              "
+            />
+          </td>
+          <br />
+        </tr>
+      </thead>
+    </table>
+
+    <table border="1" cellpadding="20px " style="margin: 0px auto">
+      <thead>
+        <tr style="font-size: 25px">
+          <td>Id</td>
+          <td>Name</td>
+          <td>Phone</td>
+          <td>Email</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <script>
+      let data = JSON.parse(localStorage.getItem("data")) || [];
+
+      function dispalydata() {
+        let tbody = document.getElementById("tbody");
+        tbody.innerHTML = "";
+
+        data.map((val, indax) => {
+          tbody.innerHTML += `
+         <tr>
+            <td>${val.id}</td>
+            <td>${val.name}</td>
+            <td>${val.phone}</td>
+            <td>${val.email}</td>
+            <td>
+                <input type="button" value="Delete" id="delete" onclick="delet(${val.id})"
+                    style="width: 190px; height: 40px; border-radius: 8px; background: #000; color: #fff; font-size: 20px; cursor: pointer;">
+                <input type="button" value="Update" id="Update" onclick="updateData(${val.id})"
+                    style="width: 190px; height: 40px; border-radius: 8px; background: #000; color: #fff; font-size: 20px; cursor: pointer;">
+            </td>
+        </tr>
+        `;
+        });
+      }
+      dispalydata();
+      function submitdata() {
+        let name = document.getElementById("Name").value;
+        let phone = document.getElementById("Phone").value;
+        let email = document.getElementById("Email").value;
+
+        if (name && phone && email) {
+          let obj = {
+            id: Math.floor(Math.random() * 1000),
+            name,
+            phone,
+            email,
+          };
+          data.push(obj);
+          localStorage.setItem("data", JSON.stringify(data));
+
+          document.getElementById("Name").value = "";
+          document.getElementById("Phone").value = "";
+          document.getElementById("Email").value = "";
+
+          dispalydata();
+        } else {
+          alert("All fields are required");
+        }
+        dispalydata()
+        // location.reload();
+      }
+      function delet(id) {
+        console.log(id);
+
+        let datas = data.filter((val) => val.id != id);
+        localStorage.setItem("data", JSON.stringify(datas));
+        dispalydata();
+      }
+
+      function updateData(id) {
+        let updateData = data.filter((val) => val.id == id);
+
+        let name = (document.getElementById("Name").value = updateData[0].name);
+        let phone = (document.getElementById("Phone").value =
+          updateData[0].phone);
+        let email = (document.getElementById("Email").value =
+          updateData[0].email);
+        let editid = (document.getElementById("editid").value =
+          updateData[0].id);
+      }
+
+      function update() {
+        let id = document.getElementById("editid").value;
+        let name = document.getElementById("Name").value;
+        let phone = document.getElementById("Phone").value;
+        let email = document.getElementById("Email").value;
+
+        let upData = data.map((val, index) => {
+          if (val.id == edit) {
+            (name = val.name),
+              (phone = val.phone),
+              (email = val.email),
+              (edit = id);
+            return val;
+          }
+        });
+        data.push(upData);
+        localStorage.setItem("data", JSON.stringify(data));
+        // location.reload();
+      }
+    </script>
+  </body>
+</html>
