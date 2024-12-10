@@ -2,50 +2,26 @@ const express = require('express')
 const UserModels = require('../models/LoginModels');
 const { render } = require('ejs');
 const  DataModel = require('../models/BlogData');
+const fs = require('fs');
 const mongoose = require('mongoose');
 const Register = (req , res) => {
+    if(req.cookies['auth']){
+        return res.redirect('AdminPanle');
+    }
     return res.render('Register');
 } 
-// const RgisterData = async(req , res) => {
-//     const {name,email,password} = req.body;
-   
-//     const existing = await UserModels.findOne({ email:email });
-//     console.log(existing);
-    
-//     if(existing) {
-//         return res.redirect("/");
-//     }
+ 
+ 
 
-//     await UserModels.create({
-//         name,
-//         email,
-//         password
-//     })
-//     console.log('data add in mongo');
-//     return res.render('Login') 
-// }
-const firstPage = async (req, res) => {
-
-    let data = await UserModel.find({})
-    return res.render("veiw", { data })
-};
-
-const add = (req, res) => {
-    return res.render('add');
-};
-
+ 
 const RgisterData = async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        // Check if the user already exists in the database
         const existing = await UserModels.findOne({ email: email });
         console.log("Existing user:", existing);
 
-        // if (existing) {
-        //     // If the user exists, redirect to the home page
-        //     return res.redirect("/");
-        // }
+         
 
         // Create a new user in the database
         await UserModels.create({
@@ -55,12 +31,10 @@ const RgisterData = async (req, res) => {
         });
 
         console.log("Data added to MongoDB");
-        // Render the login page after successful registration
         return res.render("Login");
 
     } catch (error) {
         console.error("Error in RegisterData:", error);
-        // Handle any errors and send an appropriate response
         return res.status(500).send("An error occurred while processing your request.");
     }
 };
@@ -74,78 +48,115 @@ const RgisterData = async (req, res) => {
         return res.redirect('/')
         }
       
-
-        return res.render('AdminPanle',{user});
+        res.cookie('auth',user)
+  
+        return res.render('AdminPanle' ,{user});
 
     }
+
+
  const Logout = async (req , res)=>{
     return  res.render('Login')
 }
+ const AdminPanle = async (req , res)=>{
+    return res.render('AdminPanle')
+ }
+
 const addData = async (req, res) => {
-    
-    const { Heading, Date, Description} = req.body;
-    // console.log(req.file);
-
+    try { 
+    const { heading, date, description, userdata} = req.body;
+     
      await DataModel.create({
-        Heading,
-        Date,
-        Description,
-        description: req.file.path
+        heading:heading,
+        date:date,
+        description:description,
+        image: req.file.path
+
     })
-    data = await DataModel.find({})
+    const user = await UserModels.findById(userdata)
+   
     console.log('record add');
-    return res.render('view',{data});
-};  
+    const data = await DataModel.find({});
+    return res.render('view',{user , data});
+}catch (err) { 
+    console.log(err);
+    return false; 
 
-const deletRecord = async (req, res) => {
-    let id = new mongoose.Types.ObjectId(req.query.id);
-        
-    await DataModel.findById(id)
-    fs.unlinkSync(singal.description)
-    console.log("id ====> ", id);
-    await DataModel.findByIdAndDelete(id) 
-        console.log("user delete");
-        return res.render('view')
-       
-}
-
-const editData = async (req, res) => {
-    const id = new mongoose.Types.ObjectId(req.query.id)
-    console.log(id);
     
-    const data = await DataModel.findById(id)
-    return res.render('edit', { data })
 }
-const Upgreat = async (req, res) => {
-    const { editId, name, price, pages } = req.body
-
-    // if (req.file) {
-
-        // let singal = await DataModel.findById(editId)
-        // console.log(singal);
-        
-        // fs.unlinkSync(singal.description)
-
-        await DataModel.findByIdAndUpdate(editId, {
-            Heading,
-            Date,
-            Description,
-            // description: req.file.path
-        })
-        return res.redirect('view')
-    // } else {
-
-    //     const single = await DataModel.findById(editId);
-
-    //     await DataModel.findByIdAndUpdate(editId, {
-    //         Heading,
-    //         Date,
-    //         Description,
-    //         // description: single.description
-    //     })
-    //     return res.redirect('AdminPanle');
-    // }
-
 }  
+ 
+ 
+ 
+ const deleteData = async (req, res) => {
+    const id  = req.query.id;
+    const userdata = req.query.userdata;
+    try {
+        let single = await DataModel.findById(id)
+        fs.unlinkSync(single.image)
+     await DataModel.findByIdAndDelete(id);
 
-module.exports = {Register , RgisterData ,LoginData , Logout ,  firstPage, add, addData,deletRecord ,Upgreat,editData }
+     const data = await DataModel.find({})
+        const user = UserModels.findById(userdata);
+       
+       
+      console.log(data);
+      
+       return res.render('view', {user , data});
+    } catch (err) {
+        console.log(err);
+        
+       return false
+    }
+  };   
+
+  const edit = async (req,res) =>{
+    const id = new mongoose.Types.ObjectId(req.query.id);
+    const userdata = req.query.userdata;
+    console.log(userdata);   
+    
+    const data = await DataModel.findById(id);
+    const user = await UserModels.findById(userdata);
+    return res.render('edit', {data ,user});
+  }
+
+const update = async (req, res) =>{
+    try {
+        if (req.file) {
+            const { heading, date, description , editid, userdata} = req.body;
+            let single = await DataModel.findById(editid)
+        
+            const data = await DataModel.find({});
+            const user = await UserModels.findById(userdata);
+            console.log(user);
+            
+            fs.unlinkSync(singal.image)
+            
+            await DataModel.findByIdAndUpdate(editid, {heading, date, description ,
+                image: req.file.path
+                
+            });
+            console.log('Data updated');
+                return res.render('view', {user, data});
+        } else {
+            const { heading, date, description , editid, userdata} = req.body;
+        
+            let single = await DataModel.findById(editid)
+            const data = await DataModel.find({});
+            const user = await UserModels.findById(userdata);
+            
+      
+            await DataModel.findByIdAndUpdate(editid, {heading, date, description ,
+                image: single.image
+                });
+                console.log('Data updated');
+                return res.render('view', {user, data});
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+ 
+}
+
+module.exports = {Register , RgisterData ,LoginData , Logout , addData , deleteData ,edit , update }
