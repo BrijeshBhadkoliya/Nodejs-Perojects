@@ -4,9 +4,14 @@ const app = express();
 const db = require('./config/db')
 const PORT = 8000;
 
+// Set the view engine to EJS
+
+app.set('view engine', 'ejs');
+
 
 // auth-session section 
 
+app.use(express.static(path.join(__dirname, 'Public')));
 
 // Set the cookie-parser code
 const cookieparser = require('cookie-parser');
@@ -25,7 +30,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: { 
         maxAge: 60000 * 60 * 24,
-        secure: false
+     
      }
 }))
 
@@ -33,13 +38,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setUser);
 
-// Set the view engine to EJS
-app.set('view engine', 'ejs');
 
 
 
 // Serve static files from the "Public" folder
-app.use(express.static(path.join(__dirname, 'Public')));
 
 
 

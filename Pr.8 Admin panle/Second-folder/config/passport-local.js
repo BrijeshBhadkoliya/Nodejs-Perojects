@@ -8,7 +8,7 @@ const User = require('../models/Rgistermodel');
 passport.use(new passportlocal(
   { usernameField: 'email' },
   async (email, password, done) => {
-
+    
     try {
       const user = await User.findOne({ email });
        

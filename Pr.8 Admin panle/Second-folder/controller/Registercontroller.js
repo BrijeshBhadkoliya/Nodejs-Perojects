@@ -4,10 +4,10 @@ const Rgister = (req, res) => {
     // if(req.cookies['autho']){
     //     return res.render('index')
     //  }
-    //  if(res.locals.users){
-    //     return res.render('index')
+     if(res.locals.users){
+        return res.render('index')
         
-    //  }
+     }
     return res.render('register')
 }
 
@@ -15,9 +15,9 @@ const Login =  (req, res) => {
     // if(req.cookies['auth']){
     //     return res.render('index')
     //  }
-    //  if(res.locals.users){
-    //     return res.render('index')
-    //  }
+     if(res.locals.users){
+        return res.render('index')
+     }
     return res.render('login')
 }
 
@@ -92,7 +92,7 @@ const getOtp = async (req, res) => {
         service: 'gmail',
         auth: {
           user: 'bhadkoliyajbrijesh@gmail.com',
-          pass: '5610'
+          pass: '561 0'
         }
       });
       
