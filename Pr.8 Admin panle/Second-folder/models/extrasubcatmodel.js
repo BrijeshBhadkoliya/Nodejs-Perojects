@@ -7,17 +7,21 @@ const userschama = mongoose.Schema({
         ref:"category"
     },
     
-    subcategory:{
+    subcategoryid:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"subcategory"
+    },
+    exsubcategory:{
         type:String,
         require:true
     },
     status:{
         type:String,
-       default:'active'
+        default:'active'
     },
    
 })
 
-const subcategory = mongoose.model('subcategory', userschama)
+const Exsubcategory = mongoose.model('Exsubcategory',userschama)
 
-module.exports = subcategory
+module.exports = Exsubcategory

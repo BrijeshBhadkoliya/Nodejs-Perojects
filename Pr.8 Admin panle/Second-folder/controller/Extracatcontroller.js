@@ -1,18 +1,20 @@
 const CategoryModel = require('../models/categorymodel')
 const SubcatModel = require('../models/SubcatModels')
+const  Extrasubcatmodel = require('../models/extrasubcatmodel');
 
-const addsubcategory = async (req,res) => {
+
+const addextrasubcategory = async (req,res) => {
     let category= await CategoryModel.find({status:'active'})
-
-    return res.render('subcategory',{category:category})
+     let subcategory = await SubcatModel.find({status:'active'})
+    return res.render('extrasubcategory',{category:category , subcategory:subcategory})
 }
 
-const addsubcategoryData = async (req,res) => {
-    const {category,SubCategoty}=req.body
+const addextrasubcategoryData = async (req,res) => {
+    const {category,subcategory , ExtraubCategoty}=req.body
     await SubcatModel.create({
         categoryid:category,
-        subcategory:SubCategoty
-        
+        subcategoryid:subcategory,
+        exsubcategory: ExtraubCategoty
     });
 
     return  res.redirect('/AdminPanale/addsubcategory')
@@ -68,6 +70,17 @@ const  editsubCategory= async (req, res) => {
     await SubcatModel.findByIdAndDelete(id);
     return res.redirect('/AdminPanale/veiwsubcategory')
  }
+const ajaxdata = async (req, res) => {
 
+    const id = req.query.id;
 
-module.exports = {addsubcategory , addsubcategoryData , veiwsubcategory , subChangeStatus , editsubCategory , Updatesubcategory , deletesubCategory }
+    const category = await SubcatModel.find({categoryid:id})
+   return res.send({
+       success:true,
+       message:'hali gayu',
+       category
+   })
+
+}
+
+module.exports = {addextrasubcategory , addextrasubcategoryData , ajaxdata}

@@ -14,12 +14,12 @@ const Categoty = async (req, res) => {
     
    
 
-    return  res.render('viewcategory', {table:[tablecategory]});
+    return   res.redirect('/AdminPanale/Categoty');
  }
  const ViewCateg = async (req, res) => {
    const tablecategory =  await CategoryModel.find({});
-
-   return  res.render('viewcategory', {table:[tablecategory]});
+      
+   return  res.render('viewcategory', {table:tablecategory});
 
  }
 
@@ -27,22 +27,19 @@ const Categoty = async (req, res) => {
 
            const id = req.query.id;
            const status = req.query.status;
-                  console.log(id);
-                  console.log(status);
-           const tablecategory =  await CategoryModel.find({});
-
+         
                   
      
        
    if (status=="active") {    
 
        await CategoryModel.findByIdAndUpdate(id,{status:"deactive"})
-       return res.redirect('/AdminPanale/viewCategoty',{table:tablecategory})
+       return res.redirect('/AdminPanale/viewCategoty')
 
    } else if((status=="deactive")){      
 
        await CategoryModel.findByIdAndUpdate(id,{status:"active"})
-       return res.redirect('/AdminPanale/viewCategoty',{table:tablecategory})
+       return res.redirect('/AdminPanale/viewCategoty')
 
    }
  } 
@@ -52,7 +49,9 @@ const Categoty = async (req, res) => {
     console.log(id);
     
     const category = await CategoryModel.findById(id);
-    return res.render('editctegory', {category:[category]})
+    console.log(category);
+    
+    return res.render('editctegory',{category:[category]})
  }
 
  const updateCategory = async (req, res) => {

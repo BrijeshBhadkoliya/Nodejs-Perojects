@@ -20,4 +20,4 @@ router.post('/change-password', changepassword)
 router.get('/change-password', changepassget);
 router.get('/logout' ,logout)
 // Export Router 
-module.exports = router;
+module.exports = router; 

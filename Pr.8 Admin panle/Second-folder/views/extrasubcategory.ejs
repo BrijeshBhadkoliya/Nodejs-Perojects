@@ -156,13 +156,13 @@
             </li>
             
             <!-- Pages -->
-            <li class="menu-item">
+            <li class="menu-item ">
               <a href="/AdminPanale/Categoty" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div class="text-truncate" data-i18n="Account Settings">Categoty</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item ">
+                <li class="menu-item">
                   <a href="/AdminPanale/Categoty" class="menu-link">
                     <div class="text-truncate" data-i18n="Account">Add Categoty</div>
                   </a>
@@ -182,7 +182,7 @@
                 <div class="text-truncate" data-i18n="Account Settings">Sub Categoty</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item ">
+                <li class="menu-item  ">
                   <a href="/AdminPanale/addsubcategory" class="menu-link">
                     <div class="text-truncate" data-i18n="Account">Add SubCategoty</div>
                   </a>
@@ -195,14 +195,15 @@
                  
               </ul>
             </li>
-        
-            <li class="menu-item ">
+
+
+            <li class="menu-item active open">
               <a href="/AdminPanale/addextrasubcategory" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div class="text-truncate" data-i18n="Account Settings">Extra SubCategoty</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item  ">
+                <li class="menu-item active">
                   <a href="/AdminPanale/addextrasubcategory" class="menu-link">
                     <div class="text-truncate" data-i18n="Account">Add extra SubCategoty</div>
                   </a>
@@ -216,7 +217,7 @@
               </ul>
             </li>
            
-
+        
             <!-- Extended components -->
             <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -357,20 +358,39 @@
                 <div class="col-md-9">
                   <div class="card">
                     <h5 class="card-header">Input Sizing &amp; Shape</h5>
+               
                     <hr class="m-0">
                     <div class="card-body">
-                      <small class="text-light fw-medium">Update Category</small>
+                      <small class="text-light fw-medium">Category</small>
 
-                     <% category.map((val , i ) => { %>                      
+                      
                       <div class="mb-6">
-                        <form action="/AdminPanale/Updatecategory" method="post">
-                          <input type="hidden" value="<%= val._id %>" name="editid">
-                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 17px; margin-top: 5px;">Add Category</label>
-                        <input type="text"  name="editCategoty" class="form-control mt-4" id="exampleFormControlInput1" placeholder="electronic , colthe ,medicin , decorition ....." value="<%= val.category %>">
+                        <form action="/AdminPanale/addextrasubcategoryData" method="post">
+                          <select name="category" id="category" onchange="recordsselect()" class="form-select">
+                            <option value="">-----select-option--</option>
+                            <% category.map((cat)=>{ %>
+                              <option value="<%= cat._id %>">
+                                  <%= cat.category %>
+                              </option>
+                              <% }) %>
+                          </select>
+                          <label for="exampleFormControlInput1" class="form-label" style="font-size: 17px; margin-top: 5px;">Add SubCategory</label>
+
+
+                          <select name="subcategory" id="optionsubat" class="form-select">
+                            <option value="">-----select-option--</option>
+                            <% subcategory.map((subcat)=>{ %>
+                              <option value="<%= subcat._id %>">
+                                  <%= subcat.subcategory %>
+                              </option>
+                              <% }) %>
+                          </select>
+
+                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 17px; margin-top: 5px;">Add ExtraSubCategory</label>
+                        <input type="text"  name="ExtraubCategoty" class="form-control mt-4" id="exampleFormControlInput1" placeholder="electronic , colthe ,medicin , decorition .....">
                         <button type="submit" class="btn btn-primary mt-4">Submit</button>
                       </form>
                       </div>
-                    <% }) %>
                        
                     </div>
                   </div>
@@ -458,5 +478,37 @@
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+<!-- jquery code  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- normal-js  -->
+     <script>
+       function recordsselect(){
+        var category =  document.getElementById('category').value
+      console.log(category);
+      
+      $.ajax ({
+           type:"GET",
+           url:`/AdminPanale/ajaxdata?id=${category}`, 
+           success:function(res){
+           const category=res.category
+           console.log();
+      
+           let tbl=""
+           tbl+=`<option value="">-----select-option--</option>`
+           category.map((cat)=>{
+             tbl+=`
+              <option value=${cat._id} > ${cat.subcategory}</option>
+
+             `
+      })
+      document.getElementById("optionsubat").innerHTML=tbl
+      
+    }
+    })
+       }
+     </script>
   </body>
 </html>

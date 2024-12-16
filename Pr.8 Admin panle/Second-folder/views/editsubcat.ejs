@@ -217,6 +217,7 @@
             </li>
            
 
+
             <!-- Extended components -->
             <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -361,16 +362,24 @@
                     <div class="card-body">
                       <small class="text-light fw-medium">Update Category</small>
 
-                     <% category.map((val , i ) => { %>                      
+                                        
                       <div class="mb-6">
-                        <form action="/AdminPanale/Updatecategory" method="post">
-                          <input type="hidden" value="<%= val._id %>" name="editid">
+                        <form action="/AdminPanale/Updatesubcategory" method="post">
+                          <input type="hidden" value="<%= subcategory._id %>" name="editid">
+                          <select name="editCategoty" id="" class="form-select">
+                            <option value="">-----select-option--</option>
+                            <% category.map((cat)=>{ %>
+                              <option value="<%= cat._id %>"  <% if(cat.category == subcategory.categoryid.category){%> selected<% }%>>
+                                  <%= cat.category %>
+                              </option>
+                              <% }) %>
+                          </select>
                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 17px; margin-top: 5px;">Add Category</label>
-                        <input type="text"  name="editCategoty" class="form-control mt-4" id="exampleFormControlInput1" placeholder="electronic , colthe ,medicin , decorition ....." value="<%= val.category %>">
+                        <input type="text"  name="editsubCategoty" class="form-control mt-4" id="exampleFormControlInput1" placeholder="electronic , colthe ,medicin , decorition ....." value="<%= subcategory.subcategory %>">
                         <button type="submit" class="btn btn-primary mt-4">Submit</button>
                       </form>
                       </div>
-                    <% }) %>
+                    
                        
                     </div>
                   </div>
