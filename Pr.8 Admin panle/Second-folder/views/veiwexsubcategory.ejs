@@ -176,7 +176,7 @@
               </ul>
             </li>
          
-            <li class="menu-item active open">
+            <li class="menu-item ">
               <a href="/AdminPanale/addsubcategory" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div class="text-truncate" data-i18n="Account Settings">Sub Categoty</div>
@@ -187,7 +187,7 @@
                     <div class="text-truncate" data-i18n="Account">Add SubCategoty</div>
                   </a>
                 </li>
-                <li class="menu-item  active">
+                <li class="menu-item  ">
                   <a href="/AdminPanale/veiwsubcategory " class="menu-link">
                     <div class="text-truncate" data-i18n="Notifications">View SubCategoty</div>
                   </a>
@@ -197,7 +197,7 @@
             </li>
            
         
-            <li class="menu-item ">
+            <li class="menu-item active open">
               <a href="/AdminPanale/addextrasubcategory" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div class="text-truncate" data-i18n="Account Settings">Extra SubCategoty</div>
@@ -208,7 +208,7 @@
                     <div class="text-truncate" data-i18n="Account">Add extra SubCategoty</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                   <a href="/AdminPanale/veiwexsubcategory" class="menu-link">
                     <div class="text-truncate" data-i18n="Notifications">View extraSubCategoty</div>
                   </a>
@@ -365,6 +365,8 @@
                             <th>No.</th>
                             <th>Category</th>
                             <th>Sub Category</th>
+                            <th>ExtraSubCategory</th>
+
                             <th>Status</th>
                             <th>Actions</th>
                           </tr>
@@ -374,12 +376,14 @@
                             <tr>
                               <td><span><%= i + 1 %></span></td>
                               <td><%= cate.categoryid.category %></td>
-                              <td><%= cate.subcategory %></td>
+                              <td><%= cate.subcategoryid.subcategory %></td>
+                              <td><%= cate.exsubcategory %></td>
+
                               <td>
                                 <% if (cate.status == "active") { %>
-                                  <a href="/AdminPanale/subChangeStatus?id=<%= cate._id %>&status=<%= cate.status %>" class="btn btn-success">Active</a>
+                                  <a href="/AdminPanale/exsubChangeStatus?id=<%= cate._id %>&status=<%= cate.status %>" class="btn btn-success">Active</a>
                                 <% } else { %>
-                                  <a href="/AdminPanale/subChangeStatus?id=<%= cate._id %>&status=<%= cate.status %>" class="btn btn-warning">deActive</a>
+                                  <a href="/AdminPanale/exsubChangeStatus?id=<%= cate._id %>&status=<%= cate.status %>" class="btn btn-warning">deActive</a>
                                   <% } %>
                               </td>
                               <td>
@@ -388,10 +392,10 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                   </button>
                                   <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/AdminPanale/editsubCategory?id=<%= cate._id %>">
+                                    <a class="dropdown-item" href="/AdminPanale/editexsubCategory?id=<%= cate._id %>">
                                       <i class="bx bx-edit-alt me-1"></i> Edit
                                     </a>
-                                    <a class="dropdown-item" href="/AdminPanale/deletesubCategory?id=<%= cate._id %>">
+                                    <a class="dropdown-item" href="/AdminPanale/deleteexsubCategory?id=<%= cate._id %>">
                                       <i class="bx bx-trash me-1"></i> Delete
                                     </a>
                                   </div>

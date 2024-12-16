@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 // passport require 
+
 // panal 
 const { adminpanel, myprofile } = require('../controller/Adminpanle-cotro');
 
@@ -12,13 +13,15 @@ const {Categoty , CatagoryData , ViewCateg , ChangeStatus , editCategory , updat
 
 // sub category 
 const {addsubcategory , addsubcategoryData , veiwsubcategory , subChangeStatus , editsubCategory , Updatesubcategory, deletesubCategory } = require('../controller/Subcatcontroller');
-const { addextrasubcategory , addextrasubcategoryData , ajaxdata} = require('../controller/Extracatcontroller');
-router.get('/',adminpanel)
 
 // extra subcategory 
 
+const { addextrasubcategory , addextrasubcategoryData , ajaxdata , veiwexsubcategory , exsubChangeStatus , editexsubCategory , Updateexsubcategory , deleteexsubCategory} = require('../controller/Extracatcontroller');
+
+//product add router  
 
 
+router.get('/',adminpanel)
 router.get('/myprofile', myprofile)
 
 // Categoty section 
@@ -43,4 +46,12 @@ router.get('/deletesubCategory' , deletesubCategory)
 router.get('/addextrasubcategory' , addextrasubcategory)
 router.post('/addextrasubcategoryData' , addextrasubcategoryData)
 router.get('/ajaxdata' , ajaxdata)
+router.get('/veiwexsubcategory' , veiwexsubcategory)
+router.get('/exsubChangeStatus' , exsubChangeStatus)
+router.get('/editexsubCategory' , editexsubCategory)
+router.post('/Updateexsubcategory' , Updateexsubcategory)
+router.get('/deleteexsubCategory' , deleteexsubCategory)
+
+//product add router  
+
 module.exports = router;

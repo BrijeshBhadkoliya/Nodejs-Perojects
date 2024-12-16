@@ -11,64 +11,66 @@ const addextrasubcategory = async (req,res) => {
 
 const addextrasubcategoryData = async (req,res) => {
     const {category,subcategory , ExtraubCategoty}=req.body
-    await SubcatModel.create({
+    await Extrasubcatmodel.create({
         categoryid:category,
         subcategoryid:subcategory,
         exsubcategory: ExtraubCategoty
     });
 
-    return  res.redirect('/AdminPanale/addsubcategory')
+    return  res.redirect('/AdminPanale/addextrasubcategory')
     
 }
 
-const veiwsubcategory = async (req,res) => {
-    const tablesubcategory =  await SubcatModel.find({}).populate('categoryid');
-    return  res.render('veiwsubcategory', {table:tablesubcategory});
+const veiwexsubcategory = async (req,res) => {
+    const tableexsubcategory =  await Extrasubcatmodel.find({}).populate('categoryid').populate('subcategoryid');
+    return  res.render('veiwexsubcategory', {table:tableexsubcategory});
 }
 
 
 
 
-const subChangeStatus = async (req, res) => {
+const exsubChangeStatus = async (req, res) => {
 
     const id = req.query.id;
     const status = req.query.status;
  
    if (status=="active") {    
 
-              await SubcatModel.findByIdAndUpdate(id,{status:"deactive"})
-              return res.redirect('/AdminPanale/veiwsubcategory')
+              await Extrasubcatmodel.findByIdAndUpdate(id,{status:"deactive"})
+              return res.redirect('/AdminPanale/veiwexsubcategory')
               
               } else if((status=="deactive")){      
               
-              await SubcatModel.findByIdAndUpdate(id,{status:"active"})
-              return res.redirect('/AdminPanale/veiwsubcategory')
+              await Extrasubcatmodel.findByIdAndUpdate(id,{status:"active"})
+              return res.redirect('/AdminPanale/veiwexsubcategory')
               
               }
 } 
 
  
-const  editsubCategory= async (req, res) => {
+const  editexsubCategory= async (req, res) => {
     const id = req.query.id;
     const category = await CategoryModel.find({status:'active'})
-    const subcategory = await SubcatModel.findById(id).populate('categoryid')
-    console.log(subcategory);
+    const subcategory = await SubcatModel.find({status:'active'})
+    const exsubcategory = await Extrasubcatmodel.findById(id).populate('categoryid').populate('subcategoryid')
+   
+    
     
   
       
-    return res.render('editsubcat',{subcategory, category})
+    return res.render('editexsubcat',{ subcategory, category , exsubcategory})
  }
 
- const Updatesubcategory = async (req, res) => {
-    const {editsubCategoty, editCategoty , editid } = req.body;
-    await SubcatModel.findByIdAndUpdate(editid , {categoryid:editCategoty , subcategory:editsubCategoty});
-    return res.redirect('/AdminPanale/veiwsubcategory')
+ const Updateexsubcategory = async (req, res) => {
+    const {editexsubCategoty ,editsubCategoty, editCategoty , editid } = req.body;
+    await Extrasubcatmodel.findByIdAndUpdate(editid , {categoryid:editCategoty , subcategory:editsubCategoty , exsubcategory:editexsubCategoty});
+    return res.redirect('/AdminPanale/veiwexsubcategory')
  }
 
- const deletesubCategory = async (req, res) => {
+ const deleteexsubCategory = async (req, res) => {
     const id = req.query.id;
-    await SubcatModel.findByIdAndDelete(id);
-    return res.redirect('/AdminPanale/veiwsubcategory')
+    await Extrasubcatmodel.findByIdAndDelete(id);
+    return res.redirect('/AdminPanale/veiwexsubcategory')
  }
 const ajaxdata = async (req, res) => {
 
@@ -83,4 +85,4 @@ const ajaxdata = async (req, res) => {
 
 }
 
-module.exports = {addextrasubcategory , addextrasubcategoryData , ajaxdata}
+module.exports = {addextrasubcategory , addextrasubcategoryData , ajaxdata , veiwexsubcategory , exsubChangeStatus , editexsubCategory , Updateexsubcategory , deleteexsubCategory}
