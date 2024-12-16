@@ -19,6 +19,25 @@ const {addsubcategory , addsubcategoryData , veiwsubcategory , subChangeStatus ,
 const { addextrasubcategory , addextrasubcategoryData , ajaxdata , veiwexsubcategory , exsubChangeStatus , editexsubCategory , Updateexsubcategory , deleteexsubCategory} = require('../controller/Extracatcontroller');
 
 //product add router  
+const { addproducts , addproductdata , viewproducts , proChangeStatus , deleteproduct , editproduct , updateproductdata} = require('../controller/Productcontroller');
+
+//    multer  code   
+const multer = require('multer')
+
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix =  Math.floor(Math.random()*100000)
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+  })
+  
+  const  fileupload = multer({ storage: storage }).single("imges");
+
 
 
 router.get('/',adminpanel)
@@ -52,6 +71,13 @@ router.get('/editexsubCategory' , editexsubCategory)
 router.post('/Updateexsubcategory' , Updateexsubcategory)
 router.get('/deleteexsubCategory' , deleteexsubCategory)
 
-//product add router  
+//product add router 
 
+router.get('/addproducts' , addproducts)
+router.post('/addproductdata' ,fileupload, addproductdata)
+router.get('/viewproducts' , viewproducts)
+router.get('/proChangeStatus' , proChangeStatus)
+router.get('/deleteproduct' , deleteproduct)
+router.get('/editproduct' , editproduct)
+router.post('/updateproductdata' , fileupload , updateproductdata)
 module.exports = router;

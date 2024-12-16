@@ -63,7 +63,7 @@ const  editexsubCategory= async (req, res) => {
 
  const Updateexsubcategory = async (req, res) => {
     const {editexsubCategoty ,editsubCategoty, editCategoty , editid } = req.body;
-    await Extrasubcatmodel.findByIdAndUpdate(editid , {categoryid:editCategoty , subcategory:editsubCategoty , exsubcategory:editexsubCategoty});
+    await Extrasubcatmodel.findByIdAndUpdate(editid , {categoryid:editCategoty , subcategoryid:editsubCategoty , exsubcategory:editexsubCategoty});
     return res.redirect('/AdminPanale/veiwexsubcategory')
  }
 

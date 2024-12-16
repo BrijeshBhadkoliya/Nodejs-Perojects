@@ -15,7 +15,7 @@ const userschama = mongoose.Schema({
           type:mongoose.Schema.Types.ObjectId,
         ref:"Exsubcategory"
     },
-    product:{
+    name:{
     type:String,
     require:true
     },

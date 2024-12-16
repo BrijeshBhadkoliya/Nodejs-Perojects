@@ -7,6 +7,8 @@ const PORT = 8000;
 // Set the view engine to EJS
 
 app.set('view engine', 'ejs');
+ 
+app.use("/uploads",express.static(path.join(__dirname,'uploads')))
 
 
 // auth-session section 
@@ -26,7 +28,7 @@ const session = require('express-session');
 
 app.use(session({
     secret: 'admin',
-    resave: false,
+    resave: false, 
     saveUninitialized: false,
     cookie: { 
         maxAge: 60000 * 60 * 24,
