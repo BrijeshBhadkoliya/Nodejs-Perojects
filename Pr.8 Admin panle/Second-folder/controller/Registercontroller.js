@@ -66,6 +66,7 @@ const LoginData = async(req, res) => {
               return res.status(500).render('passswod')
              }
     res.cookie('auth',reuser)
+    res.cookie('email', email)
              
     return  res.render('index');
 }
@@ -92,7 +93,7 @@ const getOtp = async (req, res) => {
         service: 'gmail',
         auth: {
           user: 'bhadkoliyajbrijesh@gmail.com',
-          pass: '561 0'
+          pass: '5610'
         }
       });
       
@@ -113,6 +114,55 @@ const getOtp = async (req, res) => {
 
     res.cookie('otp', otp)
     res.cookie('email', email)
-    return res.redirect('forgot-password')
+    return res.render('Otp')
 }
-module.exports = { Rgister, Login , RegisterAddData , LoginData , forgotpassword , getOtp}
+
+const chackOtp = async (req, res) => {
+  const {otp} = req.body
+  const userotp =  req.cookies.otp
+  console.log(otp);
+  console.log(userotp); 
+  if(userotp == otp){
+    return res.render('Change-password')  // change password page
+  }
+  return  res.render('forgot-password'); 
+  
+}
+const changepassget = async (req, res) => {
+  return  res.render('Change-password');
+
+}
+const changepassword = async (req, res) => {
+  const {password , chagePassword } = req.body
+     
+      
+      if(password == chagePassword){
+        const email = req.cookies.email
+        const userpass =  await RegisterModel.findOne({email:email})
+        const editId = userpass._id
+
+
+        await RegisterModel.findByIdAndUpdate(editId, {
+          password:  chagePassword,
+        })
+        console.log(userpass);
+
+        console.log(userpass._id);
+      return  res.render('login');
+
+
+      }
+      
+      return  res.render('Change-password');
+ 
+}
+const logout = async (req, res) => {
+     req.logout((err)=>{
+      if(err){
+        console.log(err+'not out this page');
+        return false
+        
+      } return res.redirect('/login')
+     })
+}
+module.exports = { Rgister, Login , RegisterAddData , LoginData , forgotpassword , getOtp ,chackOtp ,changepassword , changepassget , logout}
