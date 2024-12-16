@@ -1,32 +1,32 @@
-const CategoryModel = require('../models/categorymodel')
-const SubcatModel = require('../models/SubcatModels')
-const  Extrasubcatmodel = require('../models/extrasubcatmodel');
-const ProductModel = require('../models/Productsmodel');
-const path = require('path');
+    const CategoryModel = require('../models/categorymodel')
+    const SubcatModel = require('../models/SubcatModels')
+    const  Extrasubcatmodel = require('../models/extrasubcatmodel');
+    const ProductModel = require('../models/Productsmodel');
+    const path = require('path');
+    const fs = require('fs')
 
-
-const addproducts = async (req ,res) => {
+    const addproducts = async (req ,res) => {
+        
+            let category= await CategoryModel.find({status:'active'})
+            let subcategory = await SubcatModel.find({status:'active'})
+            let exsubcategory = await Extrasubcatmodel.find({status:'active'})
     
-        let category= await CategoryModel.find({status:'active'})
-        let subcategory = await SubcatModel.find({status:'active'})
-        let exsubcategory = await Extrasubcatmodel.find({status:'active'})
-   
-    return res.render('Addproducts', {category:category , subcategory:subcategory , exsubcategory:exsubcategory})
-}
-const addproductdata = async (req ,res) =>{
-    const {category,subcategory , exsubcategory , name , price , desc } = req.body
-    await ProductModel.create({
-        categoryid:category,
-        subcategoryid:subcategory,
-        exsubcategoryid: exsubcategory,
-        name,
-        price,
-        desc ,
-        image:res.file
-    });
+        return res.render('Addproducts', {category:category , subcategory:subcategory , exsubcategory:exsubcategory})
+    }
+    const addproductdata = async (req ,res) =>{
+        const {category,subcategory , exsubcategory , name , price , desc } = req.body
+        await ProductModel.create({
+            categoryid:category,
+            subcategoryid:subcategory,
+            exsubcategoryid: exsubcategory,
+            name,
+            price,
+            desc ,
+            image:req.file.path
+        });
 
-    return  res.redirect('/AdminPanale/addproducts')
-}
+        return  res.redirect('/AdminPanale/addproducts')
+    }
 
 
 const viewproducts = async (req, res) => {
@@ -56,6 +56,8 @@ const proChangeStatus = async (req , res) => {
 const deleteproduct = async (req , res) => {
     const id = req.query.id;
     const single = await ProductModel.findById(id);
+    console.log(single.image);
+    
     fs.unlinkSync(single.image)
 
     await ProductModel.findByIdAndDelete(id);
@@ -63,7 +65,7 @@ const deleteproduct = async (req , res) => {
     return res.redirect('/AdminPanale/viewproducts')
    
 }
-
+ 
 const editproduct = async (req , res) => {
     const id = req.query.id;
     const category = await CategoryModel.find({status:'active'})
@@ -91,7 +93,7 @@ const updateproductdata = async (req ,res) => {
         
         fs.unlinkSync(single.image)
         await ProductModel.findByIdAndUpdate(editid , {
-            categoryid:editCategoty , subcategoryid:editsubCategoty , exsubcategoryid:editexsubCategoty , name , price ,desc , image:req.file});
+            categoryid:editCategoty , subcategoryid:editsubCategoty , exsubcategoryid:editexsubCategoty , name , price ,desc , image:req.file.path});
  
         return res.redirect('/AdminPanale/viewproducts')
 

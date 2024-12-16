@@ -138,7 +138,11 @@ const changepassword = async (req, res) => {
       
       if(password == chagePassword){
         const email = req.cookies.email
+        console.log(email);
+        
         const userpass =  await RegisterModel.findOne({email:email})
+        console.log(userpass);
+        
         const editId = userpass._id
 
 
@@ -148,7 +152,7 @@ const changepassword = async (req, res) => {
         console.log(userpass);
 
         console.log(userpass._id);
-      return  res.render('login');
+      return  res.render('login'); 
 
 
       }

@@ -74,7 +74,7 @@ router.get('/deleteexsubCategory' , deleteexsubCategory)
 //product add router 
 
 router.get('/addproducts' , addproducts)
-router.post('/addproductdata' ,fileupload, addproductdata)
+router.post('/addproductdata' ,fileupload, addproductdata) 
 router.get('/viewproducts' , viewproducts)
 router.get('/proChangeStatus' , proChangeStatus)
 router.get('/deleteproduct' , deleteproduct)

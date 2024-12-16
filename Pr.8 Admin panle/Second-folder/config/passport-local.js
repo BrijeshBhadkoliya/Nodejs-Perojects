@@ -10,7 +10,8 @@ passport.use(new passportlocal(
   async (email, password, done) => {
     
     try {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email : email});
+       console.log(user);
        
       if (!user || user.password !== password) {
 
