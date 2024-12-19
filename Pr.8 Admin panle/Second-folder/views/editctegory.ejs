@@ -380,7 +380,7 @@
                     <div class="card-body">
                       <small class="text-light fw-medium">Update Category</small>
 
-                     <% category.map((val , i ) => { %>                      
+                     <% category?.map((val , i ) => { %>                      
                       <div class="mb-6">
                         <form action="/AdminPanale/Updatecategory" method="post">
                           <input type="hidden" value="<%= val._id %>" name="editid">

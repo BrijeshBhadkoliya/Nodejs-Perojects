@@ -84,5 +84,17 @@ const ajaxdata = async (req, res) => {
    })
 
 }
+const ajaxsubdata = async (req, res) => {
 
-module.exports = {addextrasubcategory , addextrasubcategoryData , ajaxdata , veiwexsubcategory , exsubChangeStatus , editexsubCategory , Updateexsubcategory , deleteexsubCategory}
+    const id = req.query.id;
+
+    const category = await Extrasubcatmodel.find({subcategoryid:id})
+   return res.send({
+       success:true,
+       message:'sub hali gayu',
+       category
+   })
+
+}
+
+module.exports = {addextrasubcategory , addextrasubcategoryData , ajaxdata , veiwexsubcategory , exsubChangeStatus , editexsubCategory , Updateexsubcategory , deleteexsubCategory , ajaxsubdata}

@@ -21,6 +21,8 @@ const addsubcategoryData = async (req,res) => {
 
 const veiwsubcategory = async (req,res) => {
     const tablesubcategory =  await SubcatModel.find({}).populate('categoryid');
+    console.log(tablesubcategory);
+    
     return  res.render('veiwsubcategory', {table:tablesubcategory});
 }
 

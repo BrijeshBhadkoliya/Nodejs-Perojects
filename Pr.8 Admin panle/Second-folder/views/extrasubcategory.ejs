@@ -396,7 +396,7 @@
                           <label for="exampleFormControlInput1" class="form-label" style="font-size: 17px; margin-top: 5px;">Add SubCategory</label>
 
 
-                          <select name="subcategory" id="optionsubat" class="form-select">
+                          <select name="subcategory" id="optionsubat" class="form-select" onchange="subcaterecordsselect()">
                             <option value="">-----select-option--</option>
                             <% subcategory.map((subcat)=>{ %>
                               <option value="<%= subcat._id %>">
@@ -511,6 +511,30 @@
       $.ajax ({
            type:"GET",
            url:`/AdminPanale/ajaxdata?id=${category}`, 
+           success:function(res){
+           const category=res.category
+           console.log();
+      
+           let tbl=""
+           tbl+=`<option value="">-----select-option--</option>`
+           category.map((cat)=>{
+             tbl+=`
+              <option value=${cat._id} > ${cat.subcategory}</option>
+
+             `
+      })
+      document.getElementById("optionsubat").innerHTML=tbl
+      
+    }
+    })
+       }
+       function subcaterecordsselect(){
+        var category =  document.getElementById('category').value
+      console.log(category);
+      
+      $.ajax ({
+           type:"GET",
+           url:`/AdminPanale/ajaxsubdata?id=${category}`, 
            success:function(res){
            const category=res.category
            console.log();

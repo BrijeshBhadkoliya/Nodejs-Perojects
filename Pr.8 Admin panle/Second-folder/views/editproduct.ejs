@@ -401,9 +401,9 @@
                        
                         <select name="editsubCategoty" id="" class="form-select">
                           <option value="">-----select-option--</option>
-                          <% subcategory.map((cat)=>{ %>
+                          <% subcategory?.map((cat)=>{ %>
                             <option value="<%= cat._id %>"  <% if(cat.subcategory == product.subcategoryid.subcategory){%> selected<% }%>>
-                                <%= cat.subcategory %>
+                                <%= cat?.subcategory %>
                             </option>
                             <% }) %>
                         </select>
@@ -414,9 +414,9 @@
                        
                           <select name="editexsubCategoty" id="" class="form-select">
                             <option value="">-----select-option--</option>
-                            <% exsubcategory.map((cat)=>{ %>
+                            <% exsubcategory?.map((cat)=>{ %>
                               <option value="<%= cat._id %>"  <% if(cat.exsubcategory == product.exsubcategoryid.exsubcategory){%> selected<% }%> >
-                                  <%= cat.exsubcategory %>
+                                  <%= cat?.exsubcategory %>
                               </option>
                               <% }) %>
                           </select>
@@ -435,7 +435,7 @@
 
                       <div class="mb-4"> 
                         <label for="exampleFormControlTextarea1" class="form-label">Product  discription</label>
-                        <textarea class="form-control" name="desc"id="exampleFormControlTextarea1" rows="3"><%= product.desc %></textarea>
+                        <textarea class="form-control" name="desc"id="exampleFormControlTextarea1" rows="3"><%= product?.desc %></textarea>
                       </div>
 
                       <div class="mb-4">

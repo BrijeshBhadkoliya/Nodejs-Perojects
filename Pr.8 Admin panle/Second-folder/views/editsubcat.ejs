@@ -386,9 +386,9 @@
                           <input type="hidden" value="<%= subcategory._id %>" name="editid">
                           <select name="editCategoty" id="" class="form-select">
                             <option value="">-----select-option--</option>
-                            <% category.map((cat)=>{ %>
+                            <% category?.map((cat)=>{ %>
                               <option value="<%= cat._id %>"  <% if(cat.category == subcategory.categoryid.category){%> selected<% }%>>
-                                  <%= cat.category %>
+                                  <%= cat?.category %>
                               </option>
                               <% }) %>
                           </select>

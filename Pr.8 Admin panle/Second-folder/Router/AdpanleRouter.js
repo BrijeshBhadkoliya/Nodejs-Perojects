@@ -16,7 +16,7 @@ const {addsubcategory , addsubcategoryData , veiwsubcategory , subChangeStatus ,
 
 // extra subcategory 
 
-const { addextrasubcategory , addextrasubcategoryData , ajaxdata , veiwexsubcategory , exsubChangeStatus , editexsubCategory , Updateexsubcategory , deleteexsubCategory} = require('../controller/Extracatcontroller');
+const { addextrasubcategory , addextrasubcategoryData , ajaxdata , veiwexsubcategory , exsubChangeStatus , editexsubCategory , Updateexsubcategory , deleteexsubCategory , ajaxsubdata} = require('../controller/Extracatcontroller');
 
 //product add router  
 const { addproducts , addproductdata , viewproducts , proChangeStatus , deleteproduct , editproduct , updateproductdata} = require('../controller/Productcontroller');
@@ -70,7 +70,7 @@ router.get('/exsubChangeStatus' , exsubChangeStatus)
 router.get('/editexsubCategory' , editexsubCategory)
 router.post('/Updateexsubcategory' , Updateexsubcategory)
 router.get('/deleteexsubCategory' , deleteexsubCategory)
-
+router.get('ajaxsubdata', ajaxsubdata)
 //product add router 
 
 router.get('/addproducts' , addproducts)
@@ -79,5 +79,5 @@ router.get('/viewproducts' , viewproducts)
 router.get('/proChangeStatus' , proChangeStatus)
 router.get('/deleteproduct' , deleteproduct)
 router.get('/editproduct' , editproduct)
-router.post('/updateproductdata' , fileupload , updateproductdata)
+router.post('/updateproductdata' , fileupload , updateproductdata);
 module.exports = router;

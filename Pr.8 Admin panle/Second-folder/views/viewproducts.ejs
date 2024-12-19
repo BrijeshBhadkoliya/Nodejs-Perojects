@@ -398,19 +398,19 @@
                           <% table.map((cate, i) => { %>
                             <tr>
                               <td><span><%= i + 1 %></span></td>
-                              <td><%= cate.categoryid.category %></td>
-                              <td><%= cate.subcategoryid.subcategory %></td>
-                              <td><%= cate.exsubcategoryid.exsubcategory %></td>
-                              <td><%= cate.name %></td>
-                              <td><%= cate.price %></td>
-                              <td><%= cate.desc %></td>
+                              <td><%= cate?.categoryid?.category %></td>
+                              <td><%= cate?.subcategoryid?.subcategory %></td>
+                              <td><%= cate?.exsubcategoryid?.exsubcategory %></td>
+                              <td><%= cate?.name %></td>
+                              <td><%= cate?.price %></td>
+                              <td><%= cate?.desc %></td>
 <td>
   <img src="/<%= cate.image %>" width="100">
 </td>
 
 
                               <td>
-                                <% if (cate.status == "active") { %>
+                                <% if (cate?.status == "active") { %>
                                   <a href="/AdminPanale/proChangeStatus?id=<%= cate._id %>&status=<%= cate.status %>" class="btn btn-success">Active</a>
                                 <% } else { %>
                                   <a href="/AdminPanale/proChangeStatus?id=<%= cate._id %>&status=<%= cate.status %>" class="btn btn-warning">DeActive</a>
