@@ -1,127 +1,112 @@
-const blog=require('../models/blogmodels')
-const fs=require('fs')
-const addblog=async(req, res)=>{
-try {
+const Blog = require('../models/blogmodels');
+const fs = require('fs');
 
-    const {title,desc}=req.body
-
-    if (!title || !desc || !req.file ) {
-        return res.status(400).send({
-            success : false,
-            message : "all filed is required",
-        })
-    }
-    
-const users= await blog.create({
-    userid:req.user._id,
-    title:title,
-    desc:desc,
-    image:req.file.path
-
-})
-return res.status(200).send({
-    success : true,
-    messsge:"user register sucessfully",
-    users
-})
-
-
-} catch (error) {
-    return res.status(501).send({
-        success : false,
-        err : error
-    })
-}
-}
-
-const viewblog=async(req, res)=>{
+const addBlog = async (req, res) => {
     try {
-    const users=await blog.find({userid:req.user._id}).populate('userid')
-    return res.status(200).send({
-        success : true,
-        messsge:"user  sucessfully fethch",
-        users
-    })
+        const { title, desc } = req.body;
 
+        if (!title || !desc || !req.file) {
+            return res.status(400).send({
+                success: false,
+                message: "All fields are required",
+            });
+        }
+
+        const blogPost = await Blog.create({
+            userid: req.user._id,
+            title,
+            desc,
+            image: req.file.path,
+        });
+
+        return res.status(201).send({
+            success: true,
+            message: "Blog created successfully",
+            blogPost,
+        });
     } catch (error) {
-        return res.status(501).send({
-            success : false,
-            err : error
-        })
+        return res.status(500).send({
+            success: false,
+            error: error.message,
+        });
     }
-}
+};
 
-const deleteblog=async(req, res)=>{
+const viewBlog = async (req, res) => {
     try {
-        const id=req.query.id;
-        const users=await blog.findByIdAndDelete(id)
+        const blogs = await Blog.find({ userid: req.user._id }).populate('userid');
         return res.status(200).send({
-            success : true,
-            messsge:"user  sucessfully delete",
-        })
-    
-        } catch (error) {
-            return res.status(501).send({
-                success : false,
-                err : error
-            })
-        }
-}
+            success: true,
+            message: "Blogs fetched successfully",
+            blogs,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            error: error.message,
+        });
+    }
+};
 
-const updateblog=async(req, res)=>{
-        try {
-            const {id,title,desc}=req.body
-      
-         
-            if (req.file) {
-                let single = await blog.findById(id)
-                console.log(single);
-                
-                fs.unlinkSync(single.image)
-    
-                users= await blog.findByIdAndUpdate(id, {
-                    title:title,
-                    desc:desc,
-                    image:req.file.path
-                })
-            console.log( users);
-            
+const deleteBlog = async (req, res) => {
+    try {
+        const { id } = req.query;
+
+        const blogPost = await Blog.findByIdAndDelete(id);
+        if (blogPost) {
+            fs.unlinkSync(blogPost.image);
+        }
+
         return res.status(200).send({
-                sucess:true,
-                message:"user successfully update",
-                users
-            })
-    
-            }
-            else {
-                let single = await blog.findById(id)
-    
-                users= await blog.findByIdAndUpdate(id, {
-                    title:title,
-                    desc:desc,
-                    image: single.image
-                })
-                console.log(users);
-                
-                return res.status(200).send({
-                    sucess:true,
-                    message:"user successfully update",
-                    users
-                })
-    
-            }
-        
-        } catch (error) {
-            return res.status(501).send({
-                success : false,
-                err : error.message
-            })
+            success: true,
+            message: "Blog deleted successfully",
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            error: error.message,
+        });
+    }
+};
+
+const updateBlog = async (req, res) => {
+    try {
+        const { id, title, desc } = req.body;
+
+        const blogPost = await Blog.findById(id);
+        if (!blogPost) {
+            return res.status(404).send({
+                success: false,
+                message: "Blog not found",
+            });
         }
-        
-}
 
+        if (req.file) {
+            fs.unlinkSync(blogPost.image);
+            blogPost.image = req.file.path;
+        }
 
-module.exports={
-    addblog,viewblog,deleteblog,updateblog
-    
-}
+        blogPost.title = title || blogPost.title;
+        blogPost.desc = desc || blogPost.desc;
+
+        await blogPost.save();
+
+        return res.status(200).send({
+            success: true,
+            message: "Blog updated successfully",
+            blogPost,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            error: error.message,
+        });
+    }
+};
+
+module.exports = {
+    addBlog,
+    viewBlog,
+    deleteBlog,
+    updateBlog,
+};

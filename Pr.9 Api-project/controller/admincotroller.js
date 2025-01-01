@@ -1,43 +1,43 @@
-const post=require('../models/blogmodels')
-const commentmodels=require('../models/commentmodels')
+const Post = require('../models/blogmodels');
+const CommentModels = require('../models/commentmodels');
 
- 
-const allPost=async(req, res)=>{
-
-
-    const allpost=await post.find({}).populate('userid')
-
-    return res.status(200).send({
-        success:true,
-        message:'view all post',
-        allpost
-
-    })
-}
-
-
-const allcomment=async(req, res)=>{
+const getAllPosts = async (req, res) => {
     try {
+        const posts = await Post.find({}).populate('userid');
 
-
-        
-        const allcommnet= await commentmodels.find({}).populate('userid').populate('postid')
-        console.log(allcommnet);
-        
         return res.status(200).send({
-            success:true,
-            message:'view all cpmmnet',
-            allcommnet
-    
-        })
-
+            success: true,
+            message: 'View all posts',
+            posts
+        });
     } catch (error) {
-        return res.status(501).send({
-            success : false,
-            err : error.message
-        })
+        return res.status(500).send({
+            success: false,
+            error: error.message
+        });
     }
-}
-module.exports={
-    allPost,allcomment
-}
+};
+
+const getAllComments = async (req, res) => {
+    try {
+        const comments = await CommentModels.find({})
+            .populate('userid')
+            .populate('postid');
+
+        return res.status(200).send({
+            success: true,
+            message: 'View all comments',
+            comments
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            error: error.message
+        });
+    }
+};
+
+module.exports = {
+    getAllPosts,
+    getAllComments
+};

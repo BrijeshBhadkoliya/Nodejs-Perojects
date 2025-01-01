@@ -18,5 +18,5 @@ const userschema=mongoose.Schema({
         require:true
     }
 })
-const post=mongoose.model('blogusers',userschema)
-module.exports=post
+const Post = mongoose.model('blogusers',userschema)
+module.exports=Post

@@ -1,51 +1,56 @@
-const jwt=require('jsonwebtoken')
-const  verifyToken=async(req, res,next)=>{
-try {
-    const token=req.headers.authorization
- 
-  
+const jwt = require('jsonwebtoken');
+
+const verifyToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+
     if (!token) {
-        return res.status(501).send({
-            success : false,
-            message : "Token Is blank"
-        })
+      return res.status(501).send({
+        success: false,
+        message: "Token is missing",
+      });
     }
-    let newtoken=token.slice(7)
-  
-    
-    jwt.verify(newtoken,"vora",(err,decodetoken)=>{
-            if (err) {
-                return res.status(400).send({
-                    success : false,
-                    message : "Token is not valid",
-                })   
-            }
-            req.user = decodetoken.payload;
-            return next();
-    })
-} catch (error) {
+
+    const cleanToken = token.slice(7);
+
+    jwt.verify(cleanToken, "vora", (err, decodedToken) => {
+      if (err) {
+        return res.status(400).send({
+          success: false,
+          message: "Token is not valid",
+        });
+      }
+
+      req.user = decodedToken.payload;
+      return next();
+    });
+  } catch (error) {
     return res.status(501).send({
-        success : false,
-        err : error
-    })
-}
-}
-const admin=async(req, res,next)=>{
-try {
-   if(req.user.role !=="admin"){
-    return res.status(400).send({
-        success : false,
-        message : "Unauthorised Access",
-    }) 
+      success: false,
+      error: error.message,
+    });
+  }
+};
 
-   }
-    return next()
-} catch (error) {
+const admin = async (req, res, next) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(400).send({
+        success: false,
+        message: "Unauthorized Access",
+      });
+    }
+    return next();
+  } catch (error) {
     console.log(error);
-    
-}
-}
+    return res.status(500).send({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
 
-module.exports={
-    verifyToken,admin
-}
+module.exports = {
+  verifyToken,
+  admin,
+};

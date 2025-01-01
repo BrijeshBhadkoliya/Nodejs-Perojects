@@ -1,25 +1,24 @@
-const express=require('express')
+const express = require('express');
+const port = 8000;
 
-const port=8000
+const app = express();
 
-const app=express()
-
-const db=require('./config/db')
+const db = require('./config/db');
 db();
-const path=require('path')
 
-const cors = require('cors'); 
+
+const cors = require('cors');
 app.use(cors());
 
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.use('/',require('./routes/indexroutes'))
+app.use('/', require('./routes/indexroutes')); 
 
-app.listen(port,(err)=>{
+app.listen(port, (err) => {
     if (err) {
-        console.log("err");
-        
+        console.error("Error starting the server:", err);  
+        return;
     }
-    console.log(`server id runing in port:-${port}`);
-    
-})
+    console.log(`Server is running on port: http://localhost:${port}/`);
+});
