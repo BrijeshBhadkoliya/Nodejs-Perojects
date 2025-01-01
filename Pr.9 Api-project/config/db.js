@@ -1,17 +1,16 @@
-const mongoose=require('mongoose')
- const connectdb=async()=>{
-    try {
-        const con=await mongoose.connect(
-            `mongodb+srv://nikhilvora:Nihkil@cluster0.bvfwl.mongodb.net/apiproject`
-        )
-        console.log(`mongodb connect`);
-        
-        
-    } catch (error) {
-        
-        console.log(error);
-        return false
-            }
+ 
+const mongoose = require('mongoose');
 
- }
- module.exports=connectdb; 
+mongoose.connect(`mongodb://localhost/admin-panale`);
+
+const db = mongoose.connection;
+
+db.on("connected",(err)=>{
+    if(err){
+        console.log(err);
+        return false;
+    }
+    console.log(`database is connected`);
+    
+})
+module.exports = db;
