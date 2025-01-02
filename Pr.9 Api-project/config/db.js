@@ -1,4 +1,4 @@
-
+ 
 const mongoose = require('mongoose');
 
 mongoose.connect(`mongodb://localhost/admin-panale`);
@@ -14,8 +14,3 @@ db.on("connected",(err)=>{
     
 })
 module.exports = db;
-
-
-
-
-
