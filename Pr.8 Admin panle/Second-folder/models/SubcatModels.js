@@ -20,4 +20,4 @@ const userschama = mongoose.Schema({
 
 const subcategory = mongoose.model('subcategory', userschama)
 
-module.exports = subcategory
+module.exports = subcategory 
