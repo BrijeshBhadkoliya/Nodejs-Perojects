@@ -4,12 +4,12 @@ const addData = async (req, res) => {
     try {
         const { name, password, email, city, phone } = req.body;
 
-        if (!name || !password || !email || !city || !phone) {
-            return res.status(400).send({
-                success: false,
-                message: "All fields are required",
-            });
-        }
+        // if (!name || !password || !email || !city || !phone) {
+        //     return res.status(400).send({
+        //         success: false,
+        //         message: "All fields are required",
+        //     });
+        // }
 
         const duplicateUser = await UserModels.findOne({ email });
         if (duplicateUser) {
@@ -23,7 +23,7 @@ const addData = async (req, res) => {
             name,
             password,
             email,
-            city,
+            city, 
             phone,
         });
 

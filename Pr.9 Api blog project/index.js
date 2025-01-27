@@ -4,7 +4,7 @@ const port = 8000;
 const app = express();
 
 const db = require('./config/db');
-db();
+
 
 
 const cors = require('cors');
@@ -20,5 +20,5 @@ app.listen(port, (err) => {
         console.error("Error starting the server:", err);  
         return;
     }
-    console.log(`Server is running on port: http://localhost:${port}/`);
+    console.log(`Server is running on port: http://localhost:${port}/user/registeruser`);
 });

@@ -1,7 +1,7 @@
  
 const mongoose = require('mongoose');
 
-mongoose.connect(`mongodb://localhost/admin-panale`);
+mongoose.connect(`mongodb://localhost/Blog-api`);
 
 const db = mongoose.connection;
 
