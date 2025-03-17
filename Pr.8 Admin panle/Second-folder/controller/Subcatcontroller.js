@@ -27,15 +27,12 @@ const veiwsubcategory = async (req,res) => {
 }
 
 
-
-
 const subChangeStatus = async (req, res) => {
 
     const id = req.query.id;
     const status = req.query.status;
  
    if (status=="active") {    
-
               await SubcatModel.findByIdAndUpdate(id,{status:"deactive"})
               return res.redirect('/AdminPanale/veiwsubcategory')
               
@@ -52,10 +49,7 @@ const  editsubCategory= async (req, res) => {
     const id = req.query.id;
     const category = await CategoryModel.find({status:'active'})
     const subcategory = await SubcatModel.findById(id).populate('categoryid')
-    console.log(subcategory);
-    
-  
-      
+    console.log(subcategory);      
     return res.render('editsubcat',{subcategory, category})
  }
 

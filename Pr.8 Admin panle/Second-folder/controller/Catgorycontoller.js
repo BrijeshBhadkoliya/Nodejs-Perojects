@@ -25,7 +25,7 @@ const Categoty = async (req, res) => {
 
  const ChangeStatus = async (req, res) => {
 
-           const id = req.query.id;
+           const id = req.query.id; 
            const status = req.query.status;
          
                   

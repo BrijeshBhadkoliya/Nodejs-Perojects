@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Registration</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #f8f9fc;
+      }
+      .container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 604px;
+        height: 626.25px;
+        top: 187px;
+        left: 658px;
+        border-radius: 16px;
+        border-width: 1px;
+        padding: 35px;
+      }
+      h2 {
+        font-family: Sora;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 48px;
+        letter-spacing: 0%;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 24px;
+        position: relative;
+      }
+      .input-group label {
+        margin-bottom: 8px;
+        font-family: Sora;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0%;
+      }
+      .input-group input {
+        padding: 12px 40px 12px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        width: 100%;
+        height: 48px;
+        background: #f5f7fa;
+        border: none;
+        color: #848382;
+        font-family: Sora;
+        font-weight: 400;
+        line-height: 20px;
+      }
+      input:focus-visible {
+        outline: 1px solid #d1d5db;
+      }
+      .input-group i {
+        position: absolute;
+        right: 15px;
+        top: 68%;
+        transform: translateY(-50%);
+        color: #6b7280;
+      }
+      .input-group span {
+        color: red;
+      }
+      .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 40px;
+        margin-top: -12px;
+        font-family: Sora;
+        font-weight: 400;
+        line-height: 20px;
+        letter-spacing: 0%;
+        text-align: center;
+      }
+      .remember-forgot a {
+        text-decoration: none;
+        color: #007aff;
+        font-weight: 600;
+      }
+      .btn {
+        width: 100%;
+        background: #007aff;
+
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .btn:hover {
+        background: #0068d8;
+      }
+      .or-text {
+        text-align: center;
+        margin: 25px 0;
+        font-size: 14px;
+        color: #6b7280;
+        font-family: Sora;
+        font-weight: 400;
+        line-height: 17.64px;
+      }
+      .social-login {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+      .social-login button {
+        flex: 1;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        height: 48px;
+        padding: 12px 16px;
+        border: 1px solid #e1e1e1;
+        margin-bottom: 30px;
+        line-height: 20px;
+      }
+      .social-login button i {
+        font-size: 20px;
+      }
+      .google {
+        background: white;
+        border: 1px solid #d1d5db;
+        color: #444;
+        font-size: 24px;
+      }
+      .microsoft {
+        background: white;
+        border: 1px solid #d1d5db;
+        color: #444;
+        font-size: 24px;
+      }
+      .signup-link {
+        text-align: center;
+        font-size: 14px;
+        font-family: Sora;
+        font-weight: 400;
+        line-height: 17.64px;
+      }
+      .signup-link a {
+        color: #007aff;
+        text-decoration: none;
+        font-weight: 600;
+        font-family: Sora;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17.64px;
+        text-decoration: underline;
+        text-decoration-style: solid;
+        text-decoration-thickness: Auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-box">
+        <h2>Welcome Back</h2>
+        <form>
+          <div class="input-group">
+            <label>Email <span>*</span></label>
+            <input type="email" placeholder="Enter your email" required />
+          </div>
+          <div class="input-group">
+            <label>Password <span>*</span></label>
+            <input type="password" placeholder="Enter your password" required />
+
+            <i class="fa-regular fa-eye" style="color: #848382"></i>
+          </div>
+          <div class="remember-forgot">
+            <label><input type="checkbox" /> Remember me</label>
+            <a href="#">Forgot Password?</a>
+          </div>
+          <button type="submit" class="btn">Sign In</button>
+          <div class="or-text">Or</div>
+          <div class="social-login">
+            <button class="google">
+              <i class="fab fa-google"></i>
+              Google</button>
+            <button class="microsoft">
+              <i class="fab fa-microsoft"></i>
+              Microsoft
+            </button>
+          </div>
+        </form>
+        <p class="signup-link">
+          Don't have an account? <a href="#">Sign Up</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
