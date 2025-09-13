@@ -1,0 +1,21 @@
+}else{
+      console.log("spred");
+ 
+ 
+const stock_ids = stock_list_arr.map(s => s.product_id);
+
+ 
+const val_obj = Arr_products.filter(id => !stock_ids.includes(id));
+
+      console.log("Missing product IDs:", val_obj);
+      console.log("val_obj",val_obj);
+      
+    res.send({messageErr:"Colour is not available"})
+
+   }
+  }else{
+     main_quantity = quantity
+  }    
+
+
+verify 
